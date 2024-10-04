@@ -1,0 +1,40 @@
+body {
+    display: flex;                  /* Usa flexbox para o layout */
+    justify-content: center;        /* Centraliza horizontalmente */
+    align-items: center;            /* Centraliza verticalmente */
+    height: 100vh;                 /* Altura da tela inteira */
+    margin: 0;                     /* Remove margens padrão */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    background-color: #f4f4f4;     /* Cor de fundo da página */
+}
+
+.container {
+    text-align: center;             /* Centraliza o texto dentro do contêiner */
+    padding: 20px;                 /* Adiciona espaçamento interno */
+    border: 1px solid #ccc;        /* Adiciona uma borda ao contêiner */
+    border-radius: 8px;            /* Arredonda os cantos da borda */
+    background-color: #ffffff;     /* Cor de fundo do contêiner */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 90%;                    /* Largura do contêiner */
+    max-width: 600px;              /* Largura máxima do contêiner */
+    margin: auto;                  /* Margem automática para centralizar */
+}
+
+ul {
+    list-style-type: none;          /* Remove os marcadores da lista */
+    padding: 0;                     /* Remove o preenchimento padrão */
+}
+
+li {
+    padding: 10px;                 /* Adiciona espaço entre os itens da lista */
+    border-bottom: 1px solid #eee; /* Adiciona uma borda inferior aos itens */
+}
+
+li:last-child {
+    border-bottom: none;           /* Remove a borda do último item da lista */
+}
+
+h1 {
+    margin-bottom: 20px;           /* Espaço abaixo do título */
+    color: #333;                   /* Cor do texto do título */
+}
