@@ -74,28 +74,29 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-} 
-
 #DATABASES = {
 #    'default': {
-#        'ENGINE': 'sql_server.pyodbc',
-#        'NAME': 'g10_clube',
-#        'USER': 'pi',
-#        'PASSWORD': 'g10',
-#        'HOST': '45.165.164.185',  # Pode ser o IP ou 'localhost' se estiver localmente
-#        'PORT': '1433',  # Porta padrão para SQL Server
-#        'OPTIONS': {
-#            'driver': 'ODBC Driver 17 for SQL Server',
-#            'unicode_results': True,  # para garantir compatibilidade com Unicode
-#            #'extra_params': 'TrustServerCertificate=yes;',  # Opcional, pode ser necessário para conexões seguras
-#        },
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+#} 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'G10_Clube',
+        'USER': 'admin',
+        'PASSWORD': 'Pi10ClubePi10',
+        'HOST': 'g10.cnm242wa22cj.us-east-2.rds.amazonaws.com',  # Sem o 'http://'
+        'PORT': '1433',  # Porta padrão para SQL Server
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'unicode_results': True,  # para garantir compatibilidade com Unicode
+            # 'extra_params': 'TrustServerCertificate=yes;',  # Opcional, pode ser necessário para conexões seguras
+        },
+    }
+}
+
 
 
 # Password validation
