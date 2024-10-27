@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{% block 'title' %}Cadastro Itens Locação{% endblock 'title' %}</title>
+{% endblock %}
+
+{% block content %}
+    <h3>Cadastrar Item Locação</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="{% url 'landing_page' %}">Voltar</a>
+{% endblock %}

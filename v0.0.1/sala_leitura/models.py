@@ -272,7 +272,7 @@ class Produtos(models.Model):
     ult_alteracao = models.DateTimeField(blank=True, null=True)
     obs = models.TextField(blank=True, null=True)  # This field type is a guess.
     data_cadastro = models.DateTimeField(blank=True, null=True)
-    capa = models.BinaryField(blank=True, null=True)
+    #capa = models.BinaryField(blank=True, null=True) ***Foi modificado no form.py***
 
     class Meta:
         managed = False
@@ -303,3 +303,6 @@ class Usuarios(models.Model):
     class Meta:
         managed = False
         db_table = 'usuarios'
+
+    def __str__(self):
+            return self.nome.strip()

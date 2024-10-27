@@ -93,13 +93,13 @@ class ProdutosForm(forms.ModelForm):
             'tombo', 'numero_tombo', 'codigo_de_barras', 'autor', 'titulo', 'procedencia',
             'estoque', 'local_estoque', 'id_editora', 'colecao', 'edicao', 'volume', 'ano',
             'id_tipo_produto', 'defeito', 'bloquear', 'aquisicao_c', 'aquisicao_d', 'aquisicao_t',
-            'id_usuario', 'ult_alteracao', 'obs', 'data_cadastro', 'capa'
+            'id_usuario', 'ult_alteracao', 'obs', 'data_cadastro' #, 'capa' *** removido do formulario
         ]
         widgets = {
             'tombo': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'ult_alteracao': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'data_cadastro': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-            'capa': forms.ClearableFileInput(),  # Para uploads de arquivos
+            #'capa': forms.ClearableFileInput(),  # Para uploads de arquivos
         }
     
     # Validações adicionais, se necessário
