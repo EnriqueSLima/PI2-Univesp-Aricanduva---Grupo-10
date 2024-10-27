@@ -5,8 +5,8 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from django.db import models
 
+from django.db import models
 
 class Editora(models.Model):
     id_editora = models.AutoField(db_column='Id_Editora', primary_key=True)  # Field name made lowercase.
@@ -17,7 +17,7 @@ class Editora(models.Model):
     telefone = models.CharField(max_length=15, blank=True, null=True)
     celular = models.CharField(max_length=15, blank=True, null=True)
     email = models.CharField(max_length=100, blank=True, null=True)
-    obs = models.TextField(blank=True, null=True)  # This field type is a guess.
+    obs = models.TextField(blank=True, null=True)
     id_usuario = models.IntegerField(blank=True, null=True)
     ult_alteracao = models.DateTimeField(blank=True, null=True)
     ativo = models.BooleanField(blank=True, null=True)
