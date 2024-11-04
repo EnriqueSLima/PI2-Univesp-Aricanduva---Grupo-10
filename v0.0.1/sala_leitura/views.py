@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 def landing_page(request):
     return render(request, 'landing_page.html')
 
-# VIEW DE SUCESSO
 def login(request):
     return render(request, 'login.html')
 
@@ -92,3 +91,16 @@ def cadastrar_tipo_produto(request):
         form = TipoProdutoForm()
 
     return render(request, 'cadastrar_tipo_produto.html', {'form': form})
+
+def cadastro(request):
+    cliente_form = ClienteForm()
+    editora_form = EditoraForm()
+    categoria_form = TipoProdutoForm()
+    produto_form = ProdutosForm()
+
+    return render(request, 'cadastro.html', {
+        'cliente_form': cliente_form,
+        'editora_form': editora_form,
+        'categoria_form': categoria_form,
+        'produto_form': produto_form,
+    })

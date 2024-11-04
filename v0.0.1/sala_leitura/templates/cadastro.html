@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Cadastros</title>
+    <script>
+        function showForm(formId) {
+            document.getElementById('cliente-form').style.display = 'none';
+            document.getElementById('editora-form').style.display = 'none';
+            document.getElementById('categoria-form').style.display = 'none';
+            document.getElementById('produto-form').style.display = 'none';
+            document.getElementById(formId).style.display = 'block';
+        }
+    </script>
+{% endblock head %}
+{% block content %}
+    <h1>Escolha o cadastro</h1>
+
+    <button onclick="showForm('cliente-form')">Cadastrar Aluno</button>
+    <button onclick="showForm('editora-form')">Cadastrar Editora</button>
+    <button onclick="showForm('categoria-form')">Cadastrar Categoria</button>
+    <button onclick="showForm('produto-form')">Cadastrar Livro</button>
+
+    <div id="cliente-form" style="display:none;">
+        <h2>Cadastro de Aluno</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ cliente_form.as_p }}
+            <button type="submit">Salvar Aluno</button>
+        </form>
+    </div>
+
+    <div id="editora-form" style="display:none;">
+        <h2>Cadastro de Editora</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ editora_form.as_p }}
+            <button type="submit">Salvar Editora</button>
+        </form>
+    </div>
+
+    <div id="categoria-form" style="display:none;">
+        <h2>Cadastro de Categoria</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ categoria_form.as_p }}
+            <button type="submit">Salvar Categoria</button>
+        </form>
+    </div>
+
+    <div id="produto-form" style="display:none;">
+        <h2>Cadastro de Produto</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ produto_form.as_p }}
+            <button type="submit">Salvar Produto</button>
+        </form>
+    </div>
+{% endblock content %}

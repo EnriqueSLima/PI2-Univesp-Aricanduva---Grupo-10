@@ -12,6 +12,7 @@ from .views import (
     cadastrar_tipo_produto,
     landing_page,
     login,
+    cadastro,
 )
 
 urlpatterns = [
@@ -19,6 +20,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', landing_page, name='landing_page'),
+    path('cadastro/', cadastro, name='cadastro'),
     path('cadastrar-usuario/', cadastrar_usuario, name='cadastrar_usuario'),
     path('cadastrar-produto/', cadastrar_produto, name='cadastrar_produto'),
     path('cadastrar-tipo/', cadastrar_tipo_produto, name='cadastrar_tipo_produto'),
