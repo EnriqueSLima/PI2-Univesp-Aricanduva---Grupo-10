@@ -66,11 +66,12 @@ class LocacaoItensForm(forms.ModelForm):
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = [
-            'nome', 'nome_social', 'tipo', 'cpf', 'ie_rg', 'endereco', 'numero', 'cep', 
-            'bairro', 'cidade', 'estado', 'uf', 'contato', 'ddd', 'telefone', 'celular', 
-            'email', 'obs', 'ativo'
-        ]
+        fields = [ 'nome' , 'ie_rg']
+        #fields = [
+        #    'nome', 'nome_social', 'tipo', 'cpf', 'ie_rg', 'endereco', 'numero', 'cep', 
+        #    'bairro', 'cidade', 'estado', 'uf', 'contato', 'ddd', 'telefone', 'celular', 
+        #    'email', 'obs', 'ativo'
+        #] *** Para BD completo ***
         widgets = {
             'cpf': forms.TextInput(attrs={'placeholder': '000.000.000-00'}),
             'cep': forms.TextInput(attrs={'placeholder': '00000-000'}),
@@ -117,7 +118,8 @@ class TipoProdutoForm(forms.ModelForm):
 class UsuariosForm(forms.ModelForm):
     class Meta:
         model = Usuarios
-        fields = ['nome', 'senha', 'id_unidade', 'id_acesso', 'ativo', 'obs']
+        fields = ['nome', 'senha']
+        #fields = ['nome', 'senha', 'id_unidade', 'id_acesso', 'ativo', 'obs'] *** Para BD completo ***
         widgets = {
             'senha': forms.PasswordInput(),  # Para exibir o campo 'senha' como senha
         }
