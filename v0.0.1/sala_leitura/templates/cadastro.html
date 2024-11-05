@@ -48,11 +48,11 @@
     </div>
 
     <div id="produto-form" style="display:none;">
-        <h2>Cadastro de Produto</h2>
+        <h2>Cadastro de Livro</h2>
         <form method="post">
             {% csrf_token %}
             {{ produto_form.as_p }}
-            <button type="submit">Salvar Produto</button>
+            <button type="submit">Salvar Livro</button>
         </form>
     </div>
 {% endblock content %}

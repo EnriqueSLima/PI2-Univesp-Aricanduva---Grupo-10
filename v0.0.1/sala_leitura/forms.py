@@ -5,10 +5,11 @@ from .models import TipoProduto, Usuarios, Produtos, Cliente, Editora, Locacao, 
 class EditoraForm(forms.ModelForm):
     class Meta:
         model = Editora
-        fields = [
-            'nome', 'uf', 'contato', 'ddd', 'telefone', 'celular', 'email', 'obs', 
-            'id_usuario', 'ult_alteracao', 'ativo'
-        ]
+        fields = ['nome', 'telefone', 'celular', 'email', 'ativo']
+        #fields = [
+        #    'nome', 'uf', 'contato', 'ddd', 'telefone', 'celular', 'email', 'obs', 
+        #    'id_usuario', 'ult_alteracao', 'ativo'
+        #]
         widgets = {
             'ult_alteracao': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'telefone': forms.TextInput(attrs={'placeholder': '(XX) XXXX-XXXX'}),
@@ -91,11 +92,15 @@ class ProdutosForm(forms.ModelForm):
     class Meta:
         model = Produtos
         fields = [
-            'tombo', 'numero_tombo', 'codigo_de_barras', 'autor', 'titulo', 'procedencia',
-            'estoque', 'local_estoque', 'id_editora', 'colecao', 'edicao', 'volume', 'ano',
-            'id_tipo_produto', 'defeito', 'bloquear', 'aquisicao_c', 'aquisicao_d', 'aquisicao_t',
-            'id_usuario', 'ult_alteracao', 'obs', 'data_cadastro' #, 'capa' *** removido do formulario
-        ]
+            'tombo', 'numero_tombo', 'autor', 'titulo', 'procedencia',
+            'estoque', 'id_editora', 'colecao', 'edicao', 'volume', 'ano',
+            'defeito', 'bloquear', 'aquisicao_c', 'aquisicao_d', 'aquisicao_t']
+        #fields = [
+        #    'tombo', 'numero_tombo', 'codigo_de_barras', 'autor', 'titulo', 'procedencia',
+        #    'estoque', 'local_estoque', 'id_editora', 'colecao', 'edicao', 'volume', 'ano',
+        #    'id_tipo_produto', 'defeito', 'bloquear', 'aquisicao_c', 'aquisicao_d', 'aquisicao_t',
+        #    'id_usuario', 'ult_alteracao', 'obs', 'data_cadastro' #, 'capa' *** removido do formulario
+        #]
         widgets = {
             'tombo': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'ult_alteracao': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
