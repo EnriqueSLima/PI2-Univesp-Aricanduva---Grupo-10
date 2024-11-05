@@ -67,11 +67,11 @@ class LocacaoItensForm(forms.ModelForm):
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = [ 'nome' , 'ie_rg']
+        fields = [ 'nome' , 'ra', 'sexo']
         #fields = [
         #    'nome', 'nome_social', 'tipo', 'cpf', 'ie_rg', 'endereco', 'numero', 'cep', 
         #    'bairro', 'cidade', 'estado', 'uf', 'contato', 'ddd', 'telefone', 'celular', 
-        #    'email', 'obs', 'ativo'
+        #    'email', 'obs', 'ativo', 'sexo', 'ra'
         #] *** Para BD completo ***
         widgets = {
             'cpf': forms.TextInput(attrs={'placeholder': '000.000.000-00'}),

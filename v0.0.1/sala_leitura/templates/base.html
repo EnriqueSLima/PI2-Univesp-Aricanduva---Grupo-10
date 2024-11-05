@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     {% block title %}{% endblock %}
     {% block head %}{% endblock %}
 </head>
@@ -20,10 +21,10 @@
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'landing_page' %}">Consultas</a>
+                                <a class="nav-link" href="{% url 'consulta' %}">Consultas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'cadastro' %}">Cadastros</a>
+                                <a class="nav-link" href="{% url 'landing_page' %}">Cadastros</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'landing_page' %}">Empréstimos</a>

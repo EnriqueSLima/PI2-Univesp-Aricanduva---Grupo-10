@@ -12,15 +12,24 @@ from .views import (
     cadastrar_tipo_produto,
     landing_page,
     login,
-    cadastro,
+    consulta,
+    consulta_modelo,
+    lista_produtos,
+    lista_clientes,
+    lista_editoras,
+    lista_tipo_prods
 )
 
 urlpatterns = [
-    #path('', lambda request: redirect('login')),  # Redireciona para a view de login
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', landing_page, name='landing_page'),
-    path('cadastro/', cadastro, name='cadastro'),
+    path('consulta/', consulta, name='consulta'),
+    path('consulta_modelo/', consulta_modelo, name='consulta_modelo'),
+    path('produtos/', lista_produtos, name='lista_produtos'),
+    path('clientes/', lista_clientes, name='lista_clientes'),
+    path('editoras/', lista_editoras, name='lista_editoras'),
+    path('categorias/', lista_tipo_prods, name='lista_tipo_prods'),
     path('cadastrar-usuario/', cadastrar_usuario, name='cadastrar_usuario'),
     path('cadastrar-produto/', cadastrar_produto, name='cadastrar_produto'),
     path('cadastrar-tipo/', cadastrar_tipo_produto, name='cadastrar_tipo_produto'),

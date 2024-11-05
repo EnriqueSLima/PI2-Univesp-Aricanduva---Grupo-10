@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TipoProdutoForm, UsuariosForm, ProdutosForm, ClienteForm, EditoraForm, LocacaoForm, LocacaoItensForm
+from .models import Cliente, Produtos, Editora, TipoProduto
 from django.contrib.auth.decorators import login_required
 
 def landing_page(request):
@@ -92,15 +93,40 @@ def cadastrar_tipo_produto(request):
 
     return render(request, 'cadastrar_tipo_produto.html', {'form': form})
 
-def cadastro(request):
-    cliente_form = ClienteForm()
-    editora_form = EditoraForm()
-    categoria_form = TipoProdutoForm()
-    produto_form = ProdutosForm()
+@login_required
+def consulta(request):
+    return render(request, 'consulta.html')
 
-    return render(request, 'cadastro.html', {
-        'cliente_form': cliente_form,
-        'editora_form': editora_form,
-        'categoria_form': categoria_form,
-        'produto_form': produto_form,
-    })
+@login_required
+def consulta_modelo(request):
+    modelo = request.GET.get('modelo')
+    if modelo == 'produtos':
+        return redirect('lista_produtos')
+    elif modelo == 'clientes':
+        return redirect('lista_clientes')
+    elif modelo == 'editoras':
+        return redirect('lista_editoras')
+    elif modelo == 'categorias':
+        return redirect('lista_tipo_prods')
+    else:
+        return redirect('consulta')  # Redireciona de volta se não houver modelo correspondente
+
+@login_required
+def lista_produtos(request):
+    produtos = Produtos.objects.all()  # Recupera todos os produtos do banco de dados
+    return render(request, 'lista_produtos.html', {'produtos': produtos})
+
+@login_required
+def lista_clientes(request):
+    clientes = Cliente.objects.all()  # Recupera todos os clientes do banco de dados
+    return render(request, 'lista_clientes.html', {'clientes': clientes})
+
+@login_required
+def lista_editoras(request):
+    editoras = Editora.objects.all()  # Recupera todos os produtos do banco de dados
+    return render(request, 'lista_editoras.html', {'editoras': editoras})
+
+@login_required
+def lista_tipo_prods(request):
+    categorias = TipoProduto.objects.all()  # Recupera todos os clientes do banco de dados
+    return render(request, 'lista_tipo_prods.html', {'categorias': categorias})

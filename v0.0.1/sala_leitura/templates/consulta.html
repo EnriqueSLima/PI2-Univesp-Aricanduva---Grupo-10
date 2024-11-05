@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Consultas</title>
+{% endblock head %}
+{% block content %}
+    <h1>Consultas</h1>
+    {% comment %} <button onclick="window.location.href='{% url 'lista_produtos' %}'">Consultar Produtos</button> {% endcomment %}
+    {% comment %} <button onclick="window.location.href='{% url 'lista_clientes' %}'">Consultar Clientes</button> {% endcomment %}
+    <form action="{% url 'consulta_modelo' %}" method="GET">
+        <label for="modelo">Escolha um modelo para consultar:</label><br>
+        <select id="modelo" name="modelo">
+            <option value="">Selecione...</option>
+            <option value="produtos">Livros</option>
+            <option value="clientes">Alunos</option>
+            <option value="editoras">Editoras</option>
+            <option value="categorias">Categorías</option>
+            <!-- Adicione mais opções conforme necessário -->
+        </select>
+        <button type="submit">Consultar</button>
+    </form>
+{% endblock content %}
