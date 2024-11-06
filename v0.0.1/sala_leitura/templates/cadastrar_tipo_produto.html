@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %}
 
 {% block head %}
 <title>{% block 'title' %}Cadastro Tipo Produto{% endblock 'title' %}</title>
@@ -12,5 +12,10 @@
         <button type="submit">Salvar</button>
     </form>
     <a href="{% url 'landing_page' %}">Voltar</a>
+{% endblock %} {% endcomment %}
 
-{% endblock %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar</button>
+</form>

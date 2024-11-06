@@ -10,54 +10,6 @@ def login(request):
     return render(request, 'login.html')
 
 @login_required
-def cadastrar_usuario(request):
-    if request.method == 'POST':
-        form = UsuariosForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_usuario')  # Redirecionar após sucesso
-    else:
-        form = UsuariosForm()
-    
-    return render(request, 'cadastrar_usuario.html', {'form': form})
-
-@login_required
-def cadastrar_produto(request):
-    if request.method == 'POST':
-        form = ProdutosForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_produto')  # Redirecionar após sucesso
-    else:
-        form = ProdutosForm()
-    
-    return render(request, 'cadastrar_produto.html', {'form': form})
-
-@login_required
-def cadastrar_cliente(request):
-    if request.method == 'POST':
-        form = ClienteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_cliente')  # Redirecionar após sucesso
-    else:
-        form = ClienteForm()
-    
-    return render(request, 'cadastrar_cliente.html', {'form': form})
-
-@login_required
-def cadastrar_editora(request):
-    if request.method == 'POST':
-        form = EditoraForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_editora')  # Redirecionar após sucesso
-    else:
-        form = EditoraForm()
-    
-    return render(request, 'cadastrar_editora.html', {'form': form})
-
-@login_required
 def cadastrar_locacao(request):
     if request.method == 'POST':
         form = LocacaoForm(request.POST)
@@ -81,17 +33,6 @@ def cadastrar_locacao_itens(request):
     
     return render(request, 'cadastrar_locacao_itens.html', {'form': form})
 
-@login_required
-def cadastrar_tipo_produto(request):
-    if request.method == 'POST':
-        form = TipoProdutoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_tipo_produto')  # Redireciona após salvar
-    else:
-        form = TipoProdutoForm()
-
-    return render(request, 'cadastrar_tipo_produto.html', {'form': form})
 
 @login_required
 def consulta(request):
@@ -130,3 +71,78 @@ def lista_editoras(request):
 def lista_tipo_prods(request):
     categorias = TipoProduto.objects.all()  # Recupera todos os clientes do banco de dados
     return render(request, 'lista_tipo_prods.html', {'categorias': categorias})
+
+@login_required
+def cadastro(request):
+    form_produto = ProdutosForm()  # Crie uma instância de cada formulário que você deseja
+    form_cliente = ClienteForm()
+    form_editora = EditoraForm()
+    form_categoria = TipoProdutoForm()
+
+    context = {
+        'form_produto': form_produto,
+        'form_cliente': form_cliente,
+        'form_editora': form_editora,
+        'form_categoria': form_categoria,
+    }
+    return render(request, 'cadastro.html', context)
+
+@login_required
+def cadastrar_tipo_produto(request):
+    if request.method == 'POST':
+        form = TipoProdutoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastro')  # Redireciona após salvar
+    else:
+        form = TipoProdutoForm()
+
+    return render(request, 'cadastrar_tipo_produto.html', {'form': form})
+
+@login_required
+def cadastrar_usuario(request):
+    if request.method == 'POST':
+        form = UsuariosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastro')  # Redirecionar após sucesso
+    else:
+        form = UsuariosForm()
+    
+    return render(request, 'cadastrar_usuario.html', {'form': form})
+
+@login_required
+def cadastrar_produto(request):
+    if request.method == 'POST':
+        form = ProdutosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastro')  # Redirecionar após sucesso
+    else:
+        form = ProdutosForm()
+    
+    return render(request, 'cadastrar_produto.html', {'form': form})
+
+@login_required
+def cadastrar_cliente(request):
+    if request.method == 'POST':
+        form = ClienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastro')  # Redirecionar após sucesso
+    else:
+        form = ClienteForm()
+    
+    return render(request, 'cadastrar_cliente.html', {'form': form})
+
+@login_required
+def cadastrar_editora(request):
+    if request.method == 'POST':
+        form = EditoraForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastro')  # Redirecionar após sucesso
+    else:
+        form = EditoraForm()
+    
+    return render(request, 'cadastrar_editora.html', {'form': form})

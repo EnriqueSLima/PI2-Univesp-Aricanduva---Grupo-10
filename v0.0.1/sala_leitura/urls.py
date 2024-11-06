@@ -17,7 +17,8 @@ from .views import (
     lista_produtos,
     lista_clientes,
     lista_editoras,
-    lista_tipo_prods
+    lista_tipo_prods,
+    cadastro,
 )
 
 urlpatterns = [
@@ -30,6 +31,7 @@ urlpatterns = [
     path('clientes/', lista_clientes, name='lista_clientes'),
     path('editoras/', lista_editoras, name='lista_editoras'),
     path('categorias/', lista_tipo_prods, name='lista_tipo_prods'),
+    path('cadastro/', cadastro, name='cadastro'),
     path('cadastrar-usuario/', cadastrar_usuario, name='cadastrar_usuario'),
     path('cadastrar-produto/', cadastrar_produto, name='cadastrar_produto'),
     path('cadastrar-tipo/', cadastrar_tipo_produto, name='cadastrar_tipo_produto'),
