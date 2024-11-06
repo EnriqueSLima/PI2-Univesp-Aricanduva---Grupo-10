@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Consultas</title>
+{% endblock head %}
+{% block content %}
+    <h1>Consultas</h1>
+    <form action="{% url 'consulta_modelo' %}" method="GET">
+        <label for="modelo">Escolha o que deseja consultar:</label><br>
+        <select id="modelo" name="modelo">
+            <option value="">Selecione...</option>
+            <option value="produtos">Livros</option>
+            <option value="clientes">Alunos</option>
+            <option value="editoras">Editoras</option>
+            <option value="categorias">Categorías</option>
+            <!-- Adicione mais opções conforme necessário -->
+        </select>
+        <button type="submit">Consultar</button>
+    </form>
+{% endblock content %}
