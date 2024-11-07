@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Empréstimos</title>
+    <!-- Scripts para exibir as seções -->
+    <script>
+        function mostrarNovoEmprestimo() {
+            document.getElementById("novo-emprestimo-form").style.display = "block";
+            document.getElementById("emprestimos-ativos").style.display = "none";
+        }
+
+        function mostrarEmprestimosAtivos() {
+            document.getElementById("emprestimos-ativos").style.display = "block";
+            document.getElementById("novo-emprestimo-form").style.display = "none";
+        }
+    </script>
+{% endblock head %}
+{% block content %}
+    <h1>Empréstimos</h1>
+
+    <!-- Botões de ação -->
+    <button id="novo-emprestimo-btn" onclick="mostrarNovoEmprestimo()">Novo Empréstimo</button>
+    <button id="emprestimos-ativos-btn" onclick="mostrarEmprestimosAtivos()">Empréstimos Ativos</button>
+
+    <!-- Seções para os formulários e a lista de empréstimos -->
+    <div id="novo-emprestimo-form" style="display: none;">
+        <h2>Novo Empréstimo</h2>
+        <form method="post" action="{% url 'emprestimo' %}">
+            {% csrf_token %}
+            {{ formulario1.as_p }}
+            {{ formulario2.as_p }}
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <div id="emprestimos-ativos" style="display: none;">
+        <h2>Empréstimos Ativos</h2>
+        <ul>
+            {% for emprestimo in emprestimos %}
+                <li>{{ emprestimo.id_cliente }} - {{ emprestimo.emissao }}</li>
+            {% empty %}
+                <li>Sem empréstimos ativos.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}

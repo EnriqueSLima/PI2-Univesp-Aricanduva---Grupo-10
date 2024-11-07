@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TipoProdutoForm, UsuariosForm, ProdutosForm, ClienteForm, EditoraForm, LocacaoForm, LocacaoItensForm
-from .models import Cliente, Produtos, Editora, TipoProduto
+from .models import Cliente, Produtos, Editora, TipoProduto, Locacao, LocacaoItens
 from django.contrib.auth.decorators import login_required
 
 def landing_page(request):
@@ -8,31 +8,6 @@ def landing_page(request):
 
 def login(request):
     return render(request, 'login.html')
-
-@login_required
-def cadastrar_locacao(request):
-    if request.method == 'POST':
-        form = LocacaoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_locacao')  # Redirecionar após sucesso
-    else:
-        form = LocacaoForm()
-    
-    return render(request, 'cadastrar_locacao.html', {'form': form})
-
-@login_required
-def cadastrar_locacao_itens(request):
-    if request.method == 'POST':
-        form = LocacaoItensForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_locacao_itens')  # Redirecionar após sucesso
-    else:
-        form = LocacaoItensForm()
-    
-    return render(request, 'cadastrar_locacao_itens.html', {'form': form})
-
 
 @login_required
 def consulta(request):
@@ -146,3 +121,51 @@ def cadastrar_editora(request):
         form = EditoraForm()
     
     return render(request, 'cadastrar_editora.html', {'form': form})
+
+def emprestimo(request):
+    if request.method == "POST":
+        # Processa o formulário
+        formulario1 = LocacaoForm(request.POST)
+        formulario2 = LocacaoItensForm(request.POST)
+
+        if formulario1.is_valid() and formulario2.is_valid():
+            # Salve os dados conforme necessário
+            formulario1.save()
+            formulario2.save()
+            return redirect('emprestimo')
+
+    else:
+        formulario1 = LocacaoForm()
+        formulario2 = LocacaoItensForm()
+
+    emprestimos_ativos = Locacao.objects.all()  # Ajuste conforme sua lógica
+
+    return render(request, 'emprestimo.html', {
+        'formulario1': formulario1,
+        'formulario2': formulario2,
+        'emprestimos': emprestimos_ativos
+    })
+
+@login_required
+def cadastrar_locacao(request):
+    if request.method == 'POST':
+        form = LocacaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastrar_locacao')  # Redirecionar após sucesso
+    else:
+        form = LocacaoForm()
+    
+    return render(request, 'cadastrar_locacao.html', {'form': form})
+
+@login_required
+def cadastrar_locacao_itens(request):
+    if request.method == 'POST':
+        form = LocacaoItensForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastrar_locacao_itens')  # Redirecionar após sucesso
+    else:
+        form = LocacaoItensForm()
+    
+    return render(request, 'cadastrar_locacao_itens.html', {'form': form})

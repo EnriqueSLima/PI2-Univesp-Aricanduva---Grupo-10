@@ -27,10 +27,11 @@ class EditoraForm(forms.ModelForm):
 class LocacaoForm(forms.ModelForm):
     class Meta:
         model = Locacao
-        fields = [
-            'id_cliente', 'emissao', 'status', 'total', 'observacao', 'id_usuario',
-            'reserva', 'confirma', 'liquida'
-        ]
+        fields = [ 'id_cliente']
+        #fields = [
+        #    'id_cliente', 'emissao', 'status', 'total', 'observacao', 'id_usuario',
+        #    'reserva', 'confirma', 'liquida'
+        #]
         widgets = {
             'emissao': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'observacao': forms.Textarea(attrs={'rows': 3}),
@@ -46,10 +47,11 @@ class LocacaoForm(forms.ModelForm):
 class LocacaoItensForm(forms.ModelForm):
     class Meta:
         model = LocacaoItens
-        fields = [
-            'id_locacao', 'id_produto', 'titulo', 'quantidade', 'dev_prevista_ori', 
-            'renovou', 'dev_prevista', 'dev_realizada', 'devolvido', 'id_usuario'
-        ]
+        fields = [ 'id_produto', 'devolvido']
+        #fields = [
+        #    'id_locacao', 'id_produto', 'titulo', 'quantidade', 'dev_prevista_ori', 
+        #    'renovou', 'dev_prevista', 'dev_realizada', 'devolvido', 'id_usuario'
+        #]
         widgets = {
             'dev_prevista_ori': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'dev_prevista': forms.DateTimeInput(attrs={'type': 'datetime-local'}),

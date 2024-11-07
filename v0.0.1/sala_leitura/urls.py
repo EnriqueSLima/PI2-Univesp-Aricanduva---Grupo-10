@@ -3,13 +3,6 @@ from django.shortcuts import redirect
 from django.contrib.auth import views as auth_views
 
 from .views import (
-    cadastrar_usuario,
-    cadastrar_produto,
-    cadastrar_cliente,
-    cadastrar_editora,
-    cadastrar_locacao,
-    cadastrar_locacao_itens,
-    cadastrar_tipo_produto,
     landing_page,
     login,
     consulta,
@@ -19,6 +12,14 @@ from .views import (
     lista_editoras,
     lista_tipo_prods,
     cadastro,
+    cadastrar_usuario,
+    cadastrar_produto,
+    cadastrar_cliente,
+    cadastrar_editora,
+    cadastrar_locacao,
+    emprestimo,
+    cadastrar_locacao_itens,
+    cadastrar_tipo_produto,
 )
 
 urlpatterns = [
@@ -37,6 +38,7 @@ urlpatterns = [
     path('cadastrar-tipo/', cadastrar_tipo_produto, name='cadastrar_tipo_produto'),
     path('cadastrar-cliente/', cadastrar_cliente, name='cadastrar_cliente'),
     path('cadastrar-editora/', cadastrar_editora, name='cadastrar_editora'),
+    path('emprestimo/', emprestimo, name='emprestimo'),
     path('cadastrar-locacao/', cadastrar_locacao, name='cadastrar_locacao'),
     path('cadastrar-locacao-itens/', cadastrar_locacao_itens, name='cadastrar_locacao_itens'),
 ]
