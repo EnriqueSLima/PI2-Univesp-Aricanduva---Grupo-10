@@ -18,13 +18,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for produto in produtos %}
+            {% for livro in livros %}
                 <tr>
-                    <td>{{ produto.titulo }}</td>
-                    <td>{{ produto.autor }}</td>
-                    <td>{{ produto.volume }}</td>
-                    <td>{{ produto.edicao }}</td>
-                    <td>{{ produto.ano }}</td>
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ livro.autor }}</td>
+                    <td>{{ livro.volume }}</td>
+                    <td>{{ livro.edicao }}</td>
+                    <td>{{ livro.ano }}</td>
                 </tr>
             {% empty %}
                 <tr>

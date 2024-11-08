@@ -29,13 +29,13 @@ def consulta_modelo(request):
 
 @login_required
 def lista_livros(request):
-    produtos = Livro.objects.all()  # Recupera todos os produtos do banco de dados
+    livros = Livro.objects.all()  # Recupera todos os produtos do banco de dados
     return render(request, 'lista_livros.html', {'livros': livros})
 
 @login_required
 def lista_alunos(request):
-    clientes = Aluno.objects.all()  # Recupera todos os clientes do banco de dados
-    return render(request, 'lista_alunoss.html', {'alunos': alunos})
+    alunos = Aluno.objects.all()  # Recupera todos os clientes do banco de dados
+    return render(request, 'lista_alunos.html', {'alunos': alunos})
 
 @login_required
 def lista_editoras(request):

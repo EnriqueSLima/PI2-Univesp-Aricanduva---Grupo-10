@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 
+def data_devolucao_default():
+    return timezone.now() + timedelta(days=7)
+
 class Aluno(models.Model):
     SEXO_CHOICES = [
         ('M', 'Masculino'),
@@ -65,7 +68,7 @@ class Emprestimo(models.Model):
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)  # Relacionamento com o modelo Aluno
     livro = models.ForeignKey(Livro, on_delete=models.CASCADE)  # Relacionamento com o modelo Livro
     data_emprestimo = models.DateTimeField(default=timezone.now)  # Data do empréstimo
-    data_devolucao = models.DateTimeField(default=lambda: timezone.now() + timedelta(days=7))  # Data de devolução (7 dias após)
+    data_devolucao = models.DateTimeField(default=data_devolucao_default)  # Usando a função definida como padrão
 
     def __str__(self):
         return f'{self.aluno.nome} - {self.livro.titulo}'

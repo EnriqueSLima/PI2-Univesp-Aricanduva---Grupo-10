@@ -20,11 +20,10 @@
         <tbody>
             {% for editora in editoras %}
                 <tr>
-                    <td>{{ cliente.nome }}</td>
-                    <td>{{ cliente.telefone }}</td>
-                    <td>{{ cliente.celular }}</td>
-                    <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.ativo }}</td>
+                    <td>{{ editora.nome }}</td>
+                    <td>{{ editora.fone }}</td>
+                    <td>{{ editora.email }}</td>
+                    <td>{{ editora.ativo }}</td>
                 </tr>
             {% empty %}
                 <tr>
