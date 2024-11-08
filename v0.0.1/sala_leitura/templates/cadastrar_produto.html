@@ -1,0 +1,5 @@
+<form method="post" action="{% url 'cadastrar_produto' %}" id="form-produto">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar</button>
+</form>
