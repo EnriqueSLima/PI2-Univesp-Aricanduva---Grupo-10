@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Lista de Alunos</title>
+{% endblock head %}
+{% block content %}
+    <h1>Lista de Alunos</h1>
+    <button onclick="window.location.href='{% url 'consulta' %}'">Voltar</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>RA</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+                <tr>
+                    <td>{{ aluno.nome }}</td>
+                    <td>{{ aluno.ra }}</td>
+                    <td>{{ aluno.sexo }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhum aluno encontrado.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

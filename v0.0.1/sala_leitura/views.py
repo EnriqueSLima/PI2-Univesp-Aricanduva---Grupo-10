@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import TipoProdutoForm, UsuariosForm, ProdutosForm, ClienteForm, EditoraForm, LocacaoForm, LocacaoItensForm
-from .models import Cliente, Produtos, Editora, TipoProduto, Locacao, LocacaoItens
+from .forms import AlunoForm, LivroForm, EditoraForm, CategoriaForm, EmprestimoForm
+from .models import Aluno, Livro, Editora, Categoria, Emprestimo
 from django.contrib.auth.decorators import login_required
 
 def landing_page(request):
@@ -16,26 +16,26 @@ def consulta(request):
 @login_required
 def consulta_modelo(request):
     modelo = request.GET.get('modelo')
-    if modelo == 'produtos':
-        return redirect('lista_produtos')
-    elif modelo == 'clientes':
-        return redirect('lista_clientes')
+    if modelo == 'livros':
+        return redirect('lista_livros')
+    elif modelo == 'alunos':
+        return redirect('lista_alunos')
     elif modelo == 'editoras':
         return redirect('lista_editoras')
     elif modelo == 'categorias':
-        return redirect('lista_tipo_prods')
+        return redirect('lista_categorias')
     else:
         return redirect('consulta')  # Redireciona de volta se não houver modelo correspondente
 
 @login_required
-def lista_produtos(request):
-    produtos = Produtos.objects.all()  # Recupera todos os produtos do banco de dados
-    return render(request, 'lista_produtos.html', {'produtos': produtos})
+def lista_livros(request):
+    produtos = Livro.objects.all()  # Recupera todos os produtos do banco de dados
+    return render(request, 'lista_livros.html', {'livros': livros})
 
 @login_required
-def lista_clientes(request):
-    clientes = Cliente.objects.all()  # Recupera todos os clientes do banco de dados
-    return render(request, 'lista_clientes.html', {'clientes': clientes})
+def lista_alunos(request):
+    clientes = Aluno.objects.all()  # Recupera todos os clientes do banco de dados
+    return render(request, 'lista_alunoss.html', {'alunos': alunos})
 
 @login_required
 def lista_editoras(request):
@@ -43,72 +43,49 @@ def lista_editoras(request):
     return render(request, 'lista_editoras.html', {'editoras': editoras})
 
 @login_required
-def lista_tipo_prods(request):
-    categorias = TipoProduto.objects.all()  # Recupera todos os clientes do banco de dados
-    return render(request, 'lista_tipo_prods.html', {'categorias': categorias})
+def lista_categorias(request):
+    categorias = Categoria.objects.all()  # Recupera todos os clientes do banco de dados
+    return render(request, 'lista_categorias.html', {'categorias': categorias})
 
 @login_required
 def cadastro(request):
-    form_produto = ProdutosForm()  # Crie uma instância de cada formulário que você deseja
-    form_cliente = ClienteForm()
-    form_editora = EditoraForm()
-    form_categoria = TipoProdutoForm()
+    form_livros = LivroForm()  # Crie uma instância de cada formulário que você deseja
+    form_alunos = AlunoForm()
+    form_editoras = EditoraForm()
+    form_categorias = CategoriaForm()
 
     context = {
-        'form_produto': form_produto,
-        'form_cliente': form_cliente,
-        'form_editora': form_editora,
-        'form_categoria': form_categoria,
+        'form_livros': form_livros,
+        'form_alunos': form_alunos,
+        'form_editoras': form_editoras,
+        'form_categorias': form_categorias,
     }
     return render(request, 'cadastro.html', context)
 
-@login_required
-def cadastrar_tipo_produto(request):
-    if request.method == 'POST':
-        form = TipoProdutoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastro')  # Redireciona após salvar
-    else:
-        form = TipoProdutoForm()
-
-    return render(request, 'cadastrar_tipo_produto.html', {'form': form})
 
 @login_required
-def cadastrar_usuario(request):
+def cadastrar_livro(request):
     if request.method == 'POST':
-        form = UsuariosForm(request.POST)
+        form = LivroForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('cadastro')  # Redirecionar após sucesso
     else:
-        form = UsuariosForm()
+        form = LivroForm()
     
-    return render(request, 'cadastrar_usuario.html', {'form': form})
+    return render(request, 'cadastrar_livro.html', {'form': form})
 
 @login_required
-def cadastrar_produto(request):
+def cadastrar_aluno(request):
     if request.method == 'POST':
-        form = ProdutosForm(request.POST)
+        form = AlunoForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('cadastro')  # Redirecionar após sucesso
     else:
-        form = ProdutosForm()
+        form = AlunoForm()
     
-    return render(request, 'cadastrar_produto.html', {'form': form})
-
-@login_required
-def cadastrar_cliente(request):
-    if request.method == 'POST':
-        form = ClienteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastro')  # Redirecionar após sucesso
-    else:
-        form = ClienteForm()
-    
-    return render(request, 'cadastrar_cliente.html', {'form': form})
+    return render(request, 'cadastrar_aluno.html', {'form': form})
 
 @login_required
 def cadastrar_editora(request):
@@ -122,50 +99,17 @@ def cadastrar_editora(request):
     
     return render(request, 'cadastrar_editora.html', {'form': form})
 
+@login_required
+def cadastrar_categoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cadastro')  # Redireciona após salvar
+    else:
+        form = CategoriaForm()
+
+    return render(request, 'cadastrar_categoria.html', {'form': form})
+
 def emprestimo(request):
-    if request.method == "POST":
-        # Processa o formulário
-        formulario1 = LocacaoForm(request.POST)
-        formulario2 = LocacaoItensForm(request.POST)
-
-        if formulario1.is_valid() and formulario2.is_valid():
-            # Salve os dados conforme necessário
-            formulario1.save()
-            formulario2.save()
-            return redirect('emprestimo')
-
-    else:
-        formulario1 = LocacaoForm()
-        formulario2 = LocacaoItensForm()
-
-    emprestimos_ativos = Locacao.objects.all()  # Ajuste conforme sua lógica
-
-    return render(request, 'emprestimo.html', {
-        'formulario1': formulario1,
-        'formulario2': formulario2,
-        'emprestimos': emprestimos_ativos
-    })
-
-@login_required
-def cadastrar_locacao(request):
-    if request.method == 'POST':
-        form = LocacaoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_locacao')  # Redirecionar após sucesso
-    else:
-        form = LocacaoForm()
-    
-    return render(request, 'cadastrar_locacao.html', {'form': form})
-
-@login_required
-def cadastrar_locacao_itens(request):
-    if request.method == 'POST':
-        form = LocacaoItensForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cadastrar_locacao_itens')  # Redirecionar após sucesso
-    else:
-        form = LocacaoItensForm()
-    
-    return render(request, 'cadastrar_locacao_itens.html', {'form': form})
+    return render(request, 'emprestimo.html')
