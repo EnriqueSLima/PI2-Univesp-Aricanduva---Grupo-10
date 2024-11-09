@@ -2,7 +2,6 @@
 
 {% block head %}
     <title>Empréstimos</title>
-    <!-- Scripts para exibir as seções -->
     <script>
         function mostrarNovoEmprestimo() {
             document.getElementById("novo-emprestimo-form").style.display = "block";
@@ -15,31 +14,49 @@
         }
     </script>
 {% endblock head %}
+
 {% block content %}
     <h1>Empréstimos</h1>
 
-    <!-- Botões de ação -->
-    <button id="novo-emprestimo-btn" onclick="mostrarNovoEmprestimo()">Novo Empréstimo</button>
-    <button id="emprestimos-ativos-btn" onclick="mostrarEmprestimosAtivos()">Empréstimos Ativos</button>
+    <button onclick="mostrarNovoEmprestimo()">Novo Empréstimo</button>
+    <button onclick="mostrarEmprestimosAtivos()">Empréstimos Ativos</button>
 
-    <!-- Seções para os formulários e a lista de empréstimos -->
     <div id="novo-emprestimo-form" style="display: none;">
         <h2>Novo Empréstimo</h2>
         <form method="post" action="{% url 'emprestimo' %}">
             {% csrf_token %}
-            {{ formulario1.as_p }}
-            {{ formulario2.as_p }}
-            <button type="submit">Enviar</button>
+            {{ form.as_p }}
+            <button type="submit">Gerar Empréstimo</button>
         </form>
     </div>
+
     <div id="emprestimos-ativos" style="display: none;">
         <h2>Empréstimos Ativos</h2>
-        <ul>
-            {% for emprestimo in emprestimos %}
-                <li>{{ emprestimo.id_cliente }} - {{ emprestimo.emissao }}</li>
-            {% empty %}
-                <li>Sem empréstimos ativos.</li>
-            {% endfor %}
-        </ul>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Título do Livro</th>
+                    <th>Data de Empréstimo</th>
+                    <th>Data de Devolução</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emprestimo in emprestimos %}
+                    <tr>
+                        <td>{{ emprestimo.aluno.nome }}</td>
+                        <td>{{ emprestimo.livro.titulo }}</td>
+                        <td>{{ emprestimo.data_emprestimo|date:"d/m/Y" }}</td>
+                        <td>{{ emprestimo.data_devolucao|date:"d/m/Y" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">Sem empréstimos ativos.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    
+    
 {% endblock content %}

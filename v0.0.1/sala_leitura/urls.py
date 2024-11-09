@@ -4,7 +4,6 @@ from django.contrib.auth import views as auth_views
 
 from .views import (
     landing_page,
-    login,
     consulta,
     consulta_modelo,
     lista_livros,

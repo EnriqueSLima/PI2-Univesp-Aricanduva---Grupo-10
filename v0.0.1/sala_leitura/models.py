@@ -67,8 +67,8 @@ class Emprestimo(models.Model):
     id = models.AutoField(primary_key=True)  # ID automático
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)  # Relacionamento com o modelo Aluno
     livro = models.ForeignKey(Livro, on_delete=models.CASCADE)  # Relacionamento com o modelo Livro
-    data_emprestimo = models.DateTimeField(default=timezone.now)  # Data do empréstimo
-    data_devolucao = models.DateTimeField(default=data_devolucao_default)  # Usando a função definida como padrão
+    data_emprestimo = models.DateField(default=timezone.now)  # Data do empréstimo
+    data_devolucao = models.DateField(default=data_devolucao_default)  # Usando a função definida como padrão
 
     def __str__(self):
         return f'{self.aluno.nome} - {self.livro.titulo}'

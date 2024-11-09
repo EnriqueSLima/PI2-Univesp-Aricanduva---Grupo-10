@@ -2,12 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import AlunoForm, LivroForm, EditoraForm, CategoriaForm, EmprestimoForm
 from .models import Aluno, Livro, Editora, Categoria, Emprestimo
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 def landing_page(request):
     return render(request, 'landing_page.html')
-
-def login(request):
-    return render(request, 'login.html')
 
 @login_required
 def consulta(request):
@@ -112,4 +110,18 @@ def cadastrar_categoria(request):
     return render(request, 'cadastrar_categoria.html', {'form': form})
 
 def emprestimo(request):
-    return render(request, 'emprestimo.html')
+    if request.method == 'POST':
+        form = EmprestimoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('emprestimo')  # Redireciona após salvar
+    else:
+        form = EmprestimoForm()
+
+    emprestimos_ativos = Emprestimo.objects.filter(data_devolucao__gte=timezone.now())  # Empréstimos ainda não devolvidos
+
+    return render(request, 'emprestimo.html', {
+        'form': form,
+        'emprestimos': emprestimos_ativos,
+    })
+
