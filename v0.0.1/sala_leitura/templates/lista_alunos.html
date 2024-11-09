@@ -3,11 +3,31 @@
 {% block head %}
     <title>Lista de Alunos</title>
 {% endblock head %}
-{% block content %}
-    <h1>Lista de Alunos</h1>
-    <button onclick="window.location.href='{% url 'consulta' %}'">Voltar</button>
 
-    <table>
+{% block content %}
+    <h2>Lista de Alunos</h2>
+    <!-- Formulário de Filtros -->
+    <form method="GET" action="{% url 'lista_alunos' %}" class="form-inline mb-3">
+        <label for="busca_nome" class="mr-2">Buscar por nome:</label>
+        <input type="text" name="busca_nome" id="busca_nome" class="form-control mr-2" value="{{ request.GET.busca_nome }}">
+
+        <label for="busca_ra" class="mr-2">Buscar por RA:</label>
+        <input type="text" name="busca_ra" id="busca_ra" class="form-control mr-2" value="{{ request.GET.busca_ra }}">
+
+        <label for="busca_sexo" class="mr-2">Buscar por Sexo:</label>
+        <select name="busca_sexo" id="busca_sexo" class="form-control mr-2">
+            <option value="">Selecione...</option>
+            <option value="M" {% if request.GET.busca_sexo == 'M' %}selected{% endif %}>Masculino</option>
+            <option value="F" {% if request.GET.busca_sexo == 'F' %}selected{% endif %}>Feminino</option>
+            <option value="O" {% if request.GET.busca_sexo == 'F' %}selected{% endif %}>Outro</option>
+            
+        </select>
+
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <!-- Tabela de Alunos -->
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -30,3 +50,4 @@
         </tbody>
     </table>
 {% endblock content %}
+

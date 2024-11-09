@@ -9,7 +9,18 @@ def landing_page(request):
 
 @login_required
 def consulta(request):
-    return render(request, 'consulta.html')
+    livros = Livro.objects.all()
+    alunos = Aluno.objects.all()
+    editoras = Editora.objects.all()
+    categorias = Categoria.objects.all()
+
+    return render(request, 'consulta.html', {
+        'livros': livros,
+        'alunos': alunos,
+        'editoras': editoras,
+        'categorias': categorias
+    })
+
 
 @login_required
 def consulta_modelo(request):
@@ -27,22 +38,62 @@ def consulta_modelo(request):
 
 @login_required
 def lista_livros(request):
-    livros = Livro.objects.all()  # Recupera todos os produtos do banco de dados
+    filtro = request.GET.get('filtro')
+    valor = request.GET.get('valor')
+    livros = Livro.objects.all()
+    
+    if filtro and valor:
+        filtros = {
+            'tombo': 'tombo__icontains',
+            'registro': 'registro__icontains',
+            'autor': 'autor__icontains',
+            'titulo': 'titulo__icontains',
+            'editora': 'editora__icontains',
+        }
+        if filtro in filtros:
+            livros = livros.filter(**{filtros[filtro]: valor})
+    
     return render(request, 'lista_livros.html', {'livros': livros})
+
 
 @login_required
 def lista_alunos(request):
-    alunos = Aluno.objects.all()  # Recupera todos os clientes do banco de dados
+    busca_nome = request.GET.get('busca_nome', '')
+    busca_ra = request.GET.get('busca_ra', '')
+    busca_sexo = request.GET.get('busca_sexo', '')
+
+    alunos = Aluno.objects.all()
+
+    # Filtros
+    if busca_nome:
+        alunos = alunos.filter(nome__icontains=busca_nome)
+    if busca_ra:
+        alunos = alunos.filter(ra__icontains=busca_ra)
+    if busca_sexo:
+        alunos = alunos.filter(sexo=busca_sexo)
+
     return render(request, 'lista_alunos.html', {'alunos': alunos})
+
 
 @login_required
 def lista_editoras(request):
-    editoras = Editora.objects.all()  # Recupera todos os produtos do banco de dados
+    busca_nome = request.GET.get('busca_nome', '')
+    editoras = Editora.objects.all()
+    
+    if busca_nome:
+        editoras = editoras.filter(nome__icontains=busca_nome)
+    
     return render(request, 'lista_editoras.html', {'editoras': editoras})
+
 
 @login_required
 def lista_categorias(request):
     categorias = Categoria.objects.all()  # Recupera todos os clientes do banco de dados
+    busca_nome = request.GET.get('busca_nome', '')
+    
+    if busca_nome:
+        categorias = categorias.filter(nome__icontains=busca_nome)
+    
     return render(request, 'lista_categorias.html', {'categorias': categorias})
 
 @login_required
@@ -109,19 +160,33 @@ def cadastrar_categoria(request):
 
     return render(request, 'cadastrar_categoria.html', {'form': form})
 
+@login_required
 def emprestimo(request):
     if request.method == 'POST':
         form = EmprestimoForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save()  # Salva o empréstimo
             return redirect('emprestimo')  # Redireciona após salvar
     else:
         form = EmprestimoForm()
 
-    emprestimos_ativos = Emprestimo.objects.filter(data_devolucao__gte=timezone.now())  # Empréstimos ainda não devolvidos
+    # Filtra os empréstimos que ainda estão ativos
+    emprestimos_ativos = Emprestimo.objects.filter(ativo=True)
 
     return render(request, 'emprestimo.html', {
         'form': form,
         'emprestimos': emprestimos_ativos,
     })
 
+from django.shortcuts import get_object_or_404, redirect
+from .models import Emprestimo
+
+@login_required
+def alterar_status_ativo(request, emprestimo_id):
+    emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
+
+    # Alterna o status ativo
+    emprestimo.ativo = not emprestimo.ativo
+    emprestimo.save()
+
+    return redirect('emprestimo')  # Redireciona após a alteração

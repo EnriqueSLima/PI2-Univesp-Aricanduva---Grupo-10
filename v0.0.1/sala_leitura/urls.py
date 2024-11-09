@@ -16,6 +16,7 @@ from .views import (
     cadastrar_editora,
     cadastrar_categoria,
     emprestimo,
+    alterar_status_ativo
 )
 
 urlpatterns = [
@@ -34,4 +35,5 @@ urlpatterns = [
     path('cadastrar-aluno/', cadastrar_aluno, name='cadastrar_aluno'),
     path('cadastrar-editora/', cadastrar_editora, name='cadastrar_editora'),
     path('emprestimo/', emprestimo, name='emprestimo'),
+    path('alterar_status_ativo/<int:emprestimo_id>/', alterar_status_ativo, name='alterar_status_ativo'),
 ]

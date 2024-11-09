@@ -39,6 +39,7 @@
                     <th>Título do Livro</th>
                     <th>Data de Empréstimo</th>
                     <th>Data de Devolução</th>
+                    <th>Situação</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +49,7 @@
                         <td>{{ emprestimo.livro.titulo }}</td>
                         <td>{{ emprestimo.data_emprestimo|date:"d/m/Y" }}</td>
                         <td>{{ emprestimo.data_devolucao|date:"d/m/Y" }}</td>
+                        <td><a href="{% url 'alterar_status_ativo' emprestimo.id %}">Devolver</a></td>
                     </tr>
                 {% empty %}
                     <tr>

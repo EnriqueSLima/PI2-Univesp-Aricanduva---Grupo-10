@@ -3,11 +3,17 @@
 {% block head %}
     <title>Lista de Categorías</title>
 {% endblock head %}
-{% block content %}
-    <h1>Lista de Categorías</h1>
-    <button onclick="window.location.href='{% url 'consulta' %}'">Voltar</button>
 
-    <table>
+{% block content %}
+    <h3>Lista de Categorías</h3>
+    <!-- Formulário de Busca -->
+    <form method="GET" action="{% url 'lista_editoras' %}" class="form-inline mb-3">
+        <label for="busca_nome" class="mr-2">Buscar por nome:</label>
+        <input type="text" name="busca_nome" id="busca_nome" class="form-control mr-2" value="{{ request.GET.busca_nome }}">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Descrição</th>

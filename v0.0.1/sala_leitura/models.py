@@ -2,9 +2,6 @@ from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 
-def data_devolucao_default():
-    return timezone.now() + timedelta(days=7)
-
 class Aluno(models.Model):
     SEXO_CHOICES = [
         ('M', 'Masculino'),
@@ -63,12 +60,26 @@ class Categoria(models.Model):
     def __str__(self):
         return self.tipo
 
+# Função que define a data prevista de devolução (caso necessário)
+def data_devolucao_default():
+    return timezone.now() + timezone.timedelta(days=7)  # Exemplo: 7 dias após o empréstimo
+
 class Emprestimo(models.Model):
-    id = models.AutoField(primary_key=True)  # ID automático
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)  # Relacionamento com o modelo Aluno
-    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)  # Relacionamento com o modelo Livro
-    data_emprestimo = models.DateField(default=timezone.now)  # Data do empréstimo
-    data_devolucao = models.DateField(default=data_devolucao_default)  # Usando a função definida como padrão
+    id = models.AutoField(primary_key=True)
+    aluno = models.ForeignKey('Aluno', on_delete=models.CASCADE)
+    livro = models.ForeignKey('Livro', on_delete=models.CASCADE)
+    data_emprestimo = models.DateField(default=timezone.now)
+    data_prev = models.DateField(default=data_devolucao_default)
+    data_devolucao = models.DateField(null=True, blank=True)
+    ativo = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.aluno.nome} - {self.livro.titulo}'
+
+    # Método para atualizar o status 'ativo' automaticamente
+    def salvar(self, *args, **kwargs):
+        if self.data_devolucao and self.data_devolucao <= timezone.now():
+            self.ativo = False  # Torna inativo se a data de devolução foi atingida
+        else:
+            self.ativo = True  # Torna ativo se a devolução não aconteceu ainda
+        super(Emprestimo, self).save(*args, **kwargs)  # Salva normalmente
