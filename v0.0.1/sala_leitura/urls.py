@@ -20,6 +20,7 @@ from .views import (
     emprestimo,
     cadastrar_locacao_itens,
     cadastrar_tipo_produto,
+    lista_emprestimos
 )
 
 urlpatterns = [
@@ -32,6 +33,7 @@ urlpatterns = [
     path('clientes/', lista_clientes, name='lista_clientes'),
     path('editoras/', lista_editoras, name='lista_editoras'),
     path('categorias/', lista_tipo_prods, name='lista_tipo_prods'),
+    path('emprestimos/', lista_emprestimos, name='lista_emprestimos'),
     path('cadastro/', cadastro, name='cadastro'),
     path('cadastrar-usuario/', cadastrar_usuario, name='cadastrar_usuario'),
     path('cadastrar-produto/', cadastrar_produto, name='cadastrar_produto'),

@@ -27,7 +27,7 @@ class EditoraForm(forms.ModelForm):
 class LocacaoForm(forms.ModelForm):
     class Meta:
         model = Locacao
-        fields = [ 'id_cliente']
+        fields = ['id','id_cliente']
         #fields = [
         #    'id_cliente', 'emissao', 'status', 'total', 'observacao', 'id_usuario',
         #    'reserva', 'confirma', 'liquida'
@@ -47,7 +47,7 @@ class LocacaoForm(forms.ModelForm):
 class LocacaoItensForm(forms.ModelForm):
     class Meta:
         model = LocacaoItens
-        fields = [ 'id_produto', 'devolvido']
+        fields = [ 'id', 'id_produto', 'devolvido']
         #fields = [
         #    'id_locacao', 'id_produto', 'titulo', 'quantidade', 'dev_prevista_ori', 
         #    'renovou', 'dev_prevista', 'dev_realizada', 'devolvido', 'id_usuario'

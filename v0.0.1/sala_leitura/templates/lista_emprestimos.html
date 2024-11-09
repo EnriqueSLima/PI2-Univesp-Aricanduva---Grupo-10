@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Lista de Emprestimos</title>
+{% endblock head %}
+{% block content %}
+    <h1>Lista de Emprestimos</h1>
+    <button onclick="window.location.href='{% url 'consulta' %}'">Voltar</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Emprestimos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emprestimo in emprestimos %}
+                <tr>
+                    <td>{{ emprestimo }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma categorias encontrada.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

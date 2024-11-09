@@ -129,7 +129,8 @@ class Usuarios(models.Model):
 
 # *** Para registrar empréstimos.
 class Locacao(models.Model):
-    id_locacao = models.IntegerField(primary_key=True, default=0)
+    id = models.AutoField(db_column='id_locacao', primary_key=True)
+    #id = models.AutoField(primary_key=True)
     #id_cliente = models.IntegerField(blank=True, null=True)
     id_cliente = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
     emissao = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -145,14 +146,20 @@ class Locacao(models.Model):
         managed = False
         db_table = 'Locacao'
 
+    def __int__(self):
+        return self.id
+
 # *** Para registrar ????
 class LocacaoItens(models.Model):
-    id_locaitens = models.IntegerField(blank=True, null=True)
-    id_locacao = models.IntegerField(blank=True, null=True, default=0)
+    id = models.AutoField(db_column='id_locaitens', primary_key=True)
+    #id_locaitens = models.IntegerField(blank=True, null=True)
+    id_locacao = models.IntegerField(blank=True, null=True, default = 10),
+    #id_locacao = models.ForeignKey(Locacao, models.DO_NOTHING, db_column='id_locacao')
+    #id_locacao = models.ForeignKey(Locacao, models.DO_NOTHING, db_column='id_locacao', blank=True, null=True)
     #id_produto = models.IntegerField(blank=True, null=True)
     id_produto = models.ForeignKey(Produtos, models.DO_NOTHING, db_column='id_produto', blank=True, null=True)
     titulo = models.CharField(max_length=250, blank=True, null=True)
-    quantidade = models.IntegerField(blank=True, null=True)
+    quantidade = models.IntegerField(blank=True, null=True, default = 10)
     dev_prevista_ori = models.DateTimeField(blank=True, null=True)
     renovou = models.IntegerField(blank=True, null=True)
     dev_prevista = models.DateTimeField(blank=True, null=True)

@@ -24,6 +24,8 @@ def consulta_modelo(request):
         return redirect('lista_editoras')
     elif modelo == 'categorias':
         return redirect('lista_tipo_prods')
+    elif modelo == 'emprestimos':
+        return redirect('lista_emprestimos')
     else:
         return redirect('consulta')  # Redireciona de volta se não houver modelo correspondente
 
@@ -46,6 +48,11 @@ def lista_editoras(request):
 def lista_tipo_prods(request):
     categorias = TipoProduto.objects.all()  # Recupera todos os clientes do banco de dados
     return render(request, 'lista_tipo_prods.html', {'categorias': categorias})
+
+@login_required
+def lista_emprestimos(request):
+    emprestimos = Locacao.objects.all()  # Recupera todos os clientes do banco de dados
+    return render(request, 'lista_emprestimos.html', {'emprestimos': emprestimos})
 
 @login_required
 def cadastro(request):
@@ -133,17 +140,23 @@ def emprestimo(request):
             formulario1.save()
             formulario2.save()
             return redirect('emprestimo')
+        #if formulario2.is_valid():
+        #    # Salve os dados conforme necessário
+        #    formulario2.save()
+        #    return redirect('emprestimo')
 
     else:
         formulario1 = LocacaoForm()
         formulario2 = LocacaoItensForm()
 
     emprestimos_ativos = Locacao.objects.all()  # Ajuste conforme sua lógica
-
+    #itens_ativos = LocacaoItens.objects.all()
+    
     return render(request, 'emprestimo.html', {
         'formulario1': formulario1,
         'formulario2': formulario2,
-        'emprestimos': emprestimos_ativos
+        'emprestimos': emprestimos_ativos,
+        #'itens' : itens_ativos
     })
 
 @login_required
