@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de Editoras</h2>
+    <a href="{% url 'consulta' %}" class="btn">Voltar</a>
+
+    <!-- Formulário de Busca -->
+    <form method="GET" action="{% url 'lista_editoras' %}" class="form-inline mb-3">
+        <label for="busca_nome" class="mr-2">Buscar por nome:</label>
+        <input type="text" name="busca_nome" id="busca_nome" class="form-control mr-2" value="{{ request.GET.busca_nome }}">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <!-- Tabela de Editoras -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Fone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for editora in editoras %}
+                <tr>
+                    <td>{{ editora.nome }}</td>
+                    <td>{{ editora.fone }}</td>
+                    <td>{{ editora.email }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma editora encontrada.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

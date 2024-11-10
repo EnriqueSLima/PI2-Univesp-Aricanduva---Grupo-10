@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Consultas</title>
+    <script>
+        document.getElementById('busca_nome').addEventListener('input', function() {
+            const busca_nome = this.value;
+            const modelo = 'categorias';  // Exemplo para a categoria, pode adaptar para outros filtros
+            const url = `{% url 'consulta_modelo' %}?modelo=${modelo}&busca_nome=${busca_nome}`;
+        
+            fetch(url, { 
+                headers: { "X-Requested-With": "XMLHttpRequest" }  // Indica que é uma requisição AJAX
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.querySelector('#tabela-resultados').innerHTML = html;
+            });
+        });
+    </script>
+{% endblock head %}
+
+{% block content %}
+    <h1>Consultas</h1>
+    <form action="{% url 'consulta_modelo' %}" method="GET">
+        <label for="modelo">Escolha o que deseja consultar:</label><br>
+        <select id="modelo" name="modelo" onchange="this.form.submit()">
+            <option value="">Selecione...</option>
+            <option value="livros" {% if modelo == "livros" %}selected{% endif %}>Livros</option>
+            <option value="alunos" {% if modelo == "alunos" %}selected{% endif %}>Alunos</option>
+            <option value="editoras" {% if modelo == "editoras" %}selected{% endif %}>Editoras</option>
+            <option value="categorias" {% if modelo == "categorias" %}selected{% endif %}>Categorías</option>
+        </select>
+    </form>
+{% endblock content %}
