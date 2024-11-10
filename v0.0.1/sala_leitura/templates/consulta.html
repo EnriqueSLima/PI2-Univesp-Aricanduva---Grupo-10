@@ -7,14 +7,188 @@
     <h1>Consultas</h1>
     <form action="{% url 'consulta_modelo' %}" method="GET">
         <label for="modelo">Escolha o que deseja consultar:</label><br>
-        <select id="modelo" name="modelo">
+        <select id="modelo" name="modelo" onchange="this.form.submit()">
             <option value="">Selecione...</option>
-            <option value="livros">Livros</option>
-            <option value="alunos">Alunos</option>
-            <option value="editoras">Editoras</option>
-            <option value="categorias">Categorías</option>
-            <!-- Adicione mais opções conforme necessário -->
+            <option value="livros" {% if modelo == "livros" %}selected{% endif %}>Livros</option>
+            <option value="alunos" {% if modelo == "alunos" %}selected{% endif %}>Alunos</option>
+            <option value="editoras" {% if modelo == "editoras" %}selected{% endif %}>Editoras</option>
+            <option value="categorias" {% if modelo == "categorias" %}selected{% endif %}>Categorías</option>
         </select>
-        <button type="submit">Consultar</button>
     </form>
+
+    {% if modelo == "livros" %}
+    <h3>Lista de Livros:</h3>
+    <!-- Formulário de Filtro -->
+    <form method="GET" action="{% url 'consulta_modelo' %}" class="form-inline mb-3">
+        <label for="filtro" class="mr-2">Filtrar por:</label>
+        <select name="filtro" id="filtro" class="form-control mr-2">
+            <option value="">Selecione...</option>
+            <option value="registro" {% if request.GET.filtro == 'registro' %}selected{% endif %}>Registro</option>
+            <option value="autor" {% if request.GET.filtro == 'autor' %}selected{% endif %}>Autor</option>
+            <option value="titulo" {% if request.GET.filtro == 'titulo' %}selected{% endif %}>Título</option>
+            <option value="editora" {% if request.GET.filtro == 'editora' %}selected{% endif %}>Editora</option>
+            <!-- Adicione outras opções conforme necessário -->
+        </select>
+
+        <input type="text" name="valor" id="valor" class="form-control mr-2" value="{{ request.GET.valor }}">
+
+        <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+    </form>
+
+    <!-- Tabela de Livros -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tombo</th>
+                <th>Registro</th>
+                <th>Autor</th>
+                <th>Título</th>
+                <th>Procedência</th>
+                <th>Exemplar</th>
+                <th>Coleção</th>
+                <th>Edição</th>
+                <th>Ano</th>
+                <th>Vol</th>
+                <th>Editora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for livro in livros %}
+                <tr>
+                    <td>{{ livro.tombo }}</td>
+                    <td>{{ livro.registro }}</td>
+                    <td>{{ livro.autor }}</td>
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ livro.procedencia }}</td>
+                    <td>{{ livro.exemplar }}</td>
+                    <td>{{ livro.colecao }}</td>
+                    <td>{{ livro.edicao }}</td>
+                    <td>{{ livro.ano }}</td>
+                    <td>{{ livro.vol }}</td>
+                    <td>{{ livro.editora }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="11">Nenhum livro encontrado.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if modelo == "alunos" %}
+    <h2>Consulta de Alunos</h2>
+    <form method="GET" action="{% url 'consulta_modelo' %}" class="form-inline mb-3">
+        <input type="hidden" name="modelo" value="alunos">
+    
+        <label for="filtro" class="mr-2">Filtrar por:</label>
+        <select name="filtro" id="filtro" class="form-control mr-2" onchange="this.form.submit()">
+            <option value="">Selecione...</option>
+            <option value="nome" {% if request.GET.filtro == 'nome' %}selected{% endif %}>Nome</option>
+            <option value="ra" {% if request.GET.filtro == 'ra' %}selected{% endif %}>RA</option>
+            <option value="sexo" {% if request.GET.filtro == 'sexo' %}selected{% endif %}>Sexo</option>
+        </select>
+    
+        {% if is_sexo_filter %}
+            <select name="valor" id="valor" class="form-control mr-2">
+                <option value="">Selecione...</option>
+                <option value="M" {% if request.GET.valor == 'M' %}selected{% endif %}>M</option>
+                <option value="F" {% if request.GET.valor == 'F' %}selected{% endif %}>F</option>
+                <option value="O" {% if request.GET.valor == 'O' %}selected{% endif %}>O</option>
+            </select>
+        {% else %}
+            <input type="text" name="valor" id="valor" class="form-control mr-2" value="{{ request.GET.valor }}">
+        {% endif %}
+    
+        <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+    </form>
+
+    <!-- Tabela de Alunos -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>RA</th>
+                <th>Sexo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+                <tr>
+                    <td>{{ aluno.nome }}</td>
+                    <td>{{ aluno.ra }}</td>
+                    <td>{{ aluno.sexo }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhum aluno encontrado.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if modelo == "editoras" %}
+    <h2>Lista de Editoras</h2>
+    <!-- Formulário de Busca -->
+    <form method="GET" action="{% url 'consulta_modelo' %}" class="form-inline mb-3">
+        <label for="busca_nome" class="mr-2">Buscar por nome:</label>
+        <input type="text" name="busca_nome" id="busca_nome" class="form-control mr-2" value="{{ request.GET.busca_nome }}">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <!-- Tabela de Editoras -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Fone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for editora in editoras %}
+                <tr>
+                    <td>{{ editora.nome }}</td>
+                    <td>{{ editora.fone }}</td>
+                    <td>{{ editora.email }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma editora encontrada.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if modelo == "categorias" %}
+    <h3>Lista de Categorías</h3>
+    <!-- Formulário de Busca -->
+    <form method="GET" action="{% url 'consulta_modelo' %}" class="form-inline mb-3">
+        <label for="busca_nome" class="mr-2">Buscar por nome:</label>
+        <input type="text" name="busca_nome" id="busca_nome" class="form-control mr-2" value="{{ request.GET.busca_nome }}">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+                <tr>
+                    <td>{{ categoria.tipo }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma categorias encontrada.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
 {% endblock content %}
