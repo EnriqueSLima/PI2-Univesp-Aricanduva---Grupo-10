@@ -17,16 +17,17 @@
 
 {% block content %}
     <h1>Empréstimos</h1>
-
-    <button onclick="mostrarNovoEmprestimo()">Novo Empréstimo</button>
-    <button onclick="mostrarEmprestimosAtivos()">Empréstimos Ativos</button>
+    <div style='display: flex'>
+        <button class='btn' onclick="mostrarNovoEmprestimo()">Novo Empréstimo</button>
+        <button class='btn' onclick="mostrarEmprestimosAtivos()">Empréstimos Ativos</button>
+    </div>
 
     <div id="novo-emprestimo-form" style="display: none;">
         <h2>Novo Empréstimo</h2>
         <form method="post" action="{% url 'emprestimo' %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Gerar Empréstimo</button>
+            <button class='btn' type="submit">Gerar Empréstimo</button>
         </form>
     </div>
 

@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Histórico de Empréstimos</h2>
-    <a href="{% url 'consulta' %}" class="btn">Voltar</a>
-
+    <div class='div_filter'>
+        <h2>Histórico de Empréstimos</h2>
+        <a href="{% url 'consulta' %}">Voltar</a>
+    </div>
     <!-- Formulário de Filtro -->
     <form method="GET" action="{% url 'lista_emprestimos' %}" class="form-inline mb-3">
-        <label for="filtro" class="mr-2">Filtrar por:</label>
-        <select name="filtro" id="filtro" class="form-control mr-2">
-            <option value="">Selecione...</option>
-            <option value="aluno" {% if request.GET.filtro == 'aluno' %}selected{% endif %}>Aluno</option>
-            <option value="titulo" {% if request.GET.filtro == 'titulo' %}selected{% endif %}>Título</option>
-            <option value="data_devolucao" {% if request.GET.filtro == 'data_devolucao' %}selected{% endif %}>Data de Devolução</option>
-        </select>
-    
-        <input type="text" name="valor" id="valor" class="form-control mr-2" value="{{ request.GET.valor }}">
-    
-        <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+        <div class='div_filter'>
+            <label for="filtro" class="mr-2">Filtrar por:</label>
+            <select name="filtro" id="filtro" class="form-control mr-2">
+                <option value="">Selecione...</option>
+                <option value="aluno" {% if request.GET.filtro == 'aluno' %}selected{% endif %}>Aluno</option>
+                <option value="titulo" {% if request.GET.filtro == 'titulo' %}selected{% endif %}>Título</option>
+                <option value="data_devolucao" {% if request.GET.filtro == 'data_devolucao' %}selected{% endif %}>Data de Devolução</option>
+            </select>
+        
+            <input type="text" name="valor" id="valor" class="form-control mr-2" value="{{ request.GET.valor }}">
+        
+            <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+        </div>
     </form>
     
     <table class="table table-striped">

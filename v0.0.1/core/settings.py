@@ -136,6 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # settings.py
 
-LOGIN_REDIRECT_URL = 'landing_page'  # Redireciona para a landing page após o login
+LOGIN_REDIRECT_URL = 'home_page'  # Redireciona para a landing page após o login
 LOGOUT_REDIRECT_URL = 'landing_page'  # Redireciona para a landing page após o logout
 

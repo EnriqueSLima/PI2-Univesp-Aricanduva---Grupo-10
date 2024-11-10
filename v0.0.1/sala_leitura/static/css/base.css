@@ -1,0 +1,32 @@
+/* Garante que todo o corpo da página tenha um espaçamento adequado e a fonte seja legível */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centraliza o conteúdo dentro da tag <main> */
+main {
+    max-width: 1200px; /* Largura máxima para o conteúdo */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    padding: 20px; /* Espaçamento interno */
+}
+
+/* Deixe a barra de navegação com uma aparência limpa e definida */
+nav {
+    background-color: #f8f9fa; /* Cor de fundo leve para a navbar */
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    margin-top: 40px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        padding: 10px;
+    }
+}

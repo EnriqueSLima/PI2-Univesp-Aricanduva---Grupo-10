@@ -4,93 +4,24 @@ from .models import Aluno, Livro, Editora, Categoria, Emprestimo
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.http import HttpResponse, HttpRequest
-from django.db.models import Q
-from urllib.parse import urlencode
+from django.contrib import messages
 
 
+# View para a landing page
 def landing_page(request):
     return render(request, 'landing_page.html')
 
-@login_required
+# View para a home_page
+@login_required(login_url='landing_page')
 def home_page(request):
-    return render (request, "home_page.html")
+    return render(request, 'home_page.html')
 
-#@login_required
-#def consulta(request):
-#    livros = Livro.objects.all()
-#    alunos = Aluno.objects.all()
-#    editoras = Editora.objects.all()
-#    categorias = Categoria.objects.all()
-#
-#    return render(request, 'consulta.html', {
-#        'livros': livros,
-#        'alunos': alunos,
-#        'editoras': editoras,
-#        'categorias': categorias
-#    })
-
-#@login_required
-#def consulta_modelo(request):
-#    modelo = request.GET.get('modelo')
-#    context = {'modelo': modelo}
-#
-#    if modelo == 'livros':
-#        filtro = request.GET.get('filtro')
-#        valor = request.GET.get('valor')
-#        livros = Livro.objects.all()
-#        
-#        if filtro and valor:
-#            if filtro == 'registro':
-#                livros = livros.filter(registro__icontains=valor)
-#            elif filtro == 'autor':
-#                livros = livros.filter(autor__icontains=valor)
-#            elif filtro == 'titulo':
-#                livros = livros.filter(titulo__icontains=valor)
-#            elif filtro == 'editora':
-#                livros = livros.filter(editora__icontains=valor)
-#        
-#        context['livros'] = livros
-#
-#    elif modelo == 'alunos':
-#        filtro = request.GET.get('filtro')
-#        valor = request.GET.get('valor')
-#        alunos = Aluno.objects.all()
-#        
-#        if filtro and valor:
-#            if filtro == 'nome':
-#                alunos = alunos.filter(nome__icontains=valor)
-#            elif filtro == 'ra':
-#                alunos = alunos.filter(ra__icontains=valor)
-#            elif filtro == 'sexo':
-#                alunos = alunos.filter(sexo__iexact=valor)
-#        
-#        context['alunos'] = alunos
-#        context['is_sexo_filter'] = (filtro == 'sexo')  # Flag para o template
-#
-#    elif modelo == 'editoras':
-#        busca_nome = request.GET.get('busca_nome')
-#        editoras = Editora.objects.all()
-#        
-#        if busca_nome:
-#            editoras = editoras.filter(nome__icontains=busca_nome)
-#        
-#        context['editoras'] = editoras
-#
-#    elif modelo == 'categorias':
-#        busca_nome = request.GET.get('busca_nome')
-#        categorias = Categoria.objects.all()
-#        
-#        if busca_nome:
-#            categorias = categorias.filter(tipo__icontains=busca_nome)
-#        
-#        context['categorias'] = categorias
-#    
-#    return render(request, 'consulta.html', context)
-
+# View para a consultas
 @login_required
 def consulta(request):
     return render(request, 'consulta.html')
 
+# View para a listar livros
 @login_required
 def lista_livros(request):
     filtro = request.GET.get('filtro')
@@ -109,6 +40,7 @@ def lista_livros(request):
     
     return render(request, 'lista_livros.html', {'livros': livros})
 
+# View para a listar alunos
 @login_required
 def lista_alunos(request):
     filtro = request.GET.get('filtro')
@@ -127,7 +59,7 @@ def lista_alunos(request):
 
     return render(request, 'lista_alunos.html', {'alunos': alunos, 'is_sexo_filter': is_sexo_filter})
 
-
+# View para a listar editoras
 @login_required
 def lista_editoras(request):
     busca_nome = request.GET.get('busca_nome')
@@ -138,6 +70,7 @@ def lista_editoras(request):
     
     return render(request, 'lista_editoras.html', {'editoras': editoras})
 
+# View para a listar categorias
 @login_required
 def lista_categorias(request):
     busca_nome = request.GET.get('busca_nome')
@@ -148,6 +81,7 @@ def lista_categorias(request):
     
     return render(request, 'lista_categorias.html', {'categorias': categorias})
 
+# View para a listar emprestimos
 @login_required
 def lista_emprestimos(request):
     filtro = request.GET.get('filtro')
@@ -181,29 +115,7 @@ def lista_emprestimos(request):
         'valor': valor
     })
 
-#def lista_livros(request):
-#    return true
-#
-#def lista_alunos(request):
-#    return true
-#
-#def lista_editoras(request):
-#    return true
-#
-#def lista_categorias(request):
-#    return true
-#
-#def lista_emprestimos(request):
-#    return true
-
-@login_required
-def cadastro(request):
-    form_livros = LivroForm()  # Cria uma instância de cada formulário
-    form_alunos = AlunoForm()
-    form_editoras = EditoraForm()
-    form_categorias = CategoriaForm()
-    modelo = request.GET.get('modelo')
-
+# View para cadastrar
 @login_required
 def cadastro(request):
     modelo = request.GET.get('modelo')  # Recebe o modelo atual
@@ -220,21 +132,25 @@ def cadastro(request):
             form_alunos = AlunoForm(request.POST)
             if form_alunos.is_valid():
                 form_alunos.save()
+                messages.success(request, 'Cadastro realizado com sucesso!')
                 return redirect('cadastro')
         elif modelo == 'livros':
             form_livros = LivroForm(request.POST)
             if form_livros.is_valid():
                 form_livros.save()
+                messages.success(request, 'Cadastro realizado com sucesso!')
                 return redirect('cadastro')
         elif modelo == 'editoras':
             form_editoras = EditoraForm(request.POST)
             if form_editoras.is_valid():
                 form_editoras.save()
+                messages.success(request, 'Cadastro realizado com sucesso!')
                 return redirect('cadastro')
         elif modelo == 'categorias':
             form_categorias = CategoriaForm(request.POST)
             if form_categorias.is_valid():
                 form_categorias.save()
+                messages.success(request, 'Cadastro realizado com sucesso!')
                 return redirect('cadastro')
 
     # Passa todos os formulários e o modelo selecionado para o contexto
@@ -245,68 +161,16 @@ def cadastro(request):
         'form_categorias': form_categorias,
         'modelo': modelo
     }
-    
     return render(request, 'cadastro.html', context)
 
-
-
-#   *** Views serão deletadas   ***
-#@login_required
-#def cadastrar_livro(request):
-#    if request.method == 'POST':
-#        form = LivroForm(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            return redirect('cadastro')  # Redirecionar após sucesso
-#    else:
-#        form = LivroForm()
-#    
-#    return render(request, 'cadastrar_livro.html', {'form': form})
-
-#@login_required
-#def cadastrar_aluno(request):
-#    if request.method == 'POST':
-#        form = AlunoForm(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            return redirect('cadastro')  # Redirecionar após sucesso
-#    else:
-#        form = AlunoForm()
-#    
-#    return render(request, 'cadastrar_aluno.html', {'form': form})
-
-#@login_required
-#def cadastrar_editora(request):
-#    if request.method == 'POST':
-#        form = EditoraForm(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            return redirect('cadastro')  # Redirecionar após sucesso
-#    else:
-#        form = EditoraForm()
-#    
-#    return render(request, 'cadastrar_editora.html', {'form': form})
-#
-#@login_required
-#def cadastrar_categoria(request):
-#    if request.method == 'POST':
-#        form = CategoriaForm(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            return redirect('cadastro')  # Redireciona após salvar
-#    else:
-#        form = CategoriaForm()
-#
-#    return render(request, 'cadastrar_categoria.html', {'form': form})
-
-
+# View para emprestimos
 @login_required
 def emprestimo(request):
     if request.method == 'POST':
         form = EmprestimoForm(request.POST)
         if form.is_valid():
-            form.save()  # Salva o empréstimo
-            return redirect('emprestimo')  # Redireciona após salvar
+            form.save()
+            return redirect('emprestimo') 
     else:
         form = EmprestimoForm()
 
@@ -320,25 +184,16 @@ def emprestimo(request):
         'historicos' : emprestimos_hist
     })
 
+# Função para devolver livro
 @login_required
-def alterar_status_ativo(request, emprestimo_id):
-    emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
-
-    # Alterna o status ativo
-    emprestimo.ativo = not emprestimo.ativo
-    emprestimo.save()
-
-    return redirect('emprestimo')  # Redireciona após a alteração
-
 def devolver_livro(request, emprestimo_id):
-    # Obtenha o empréstimo com o ID fornecido ou 404 se não existir
+    # Obter o empréstimo com o ID fornecido ou 404 se não existir
     emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
-    
+
     # Define a data_devolucao para a data atual e desativa o empréstimo
     emprestimo.data_devolucao = timezone.now().date()
     emprestimo.ativo = False
     emprestimo.save()
 
-    return redirect('emprestimo')  # Substitua pelo nome correto da página de consulta
-
+    return redirect('emprestimo')
 

@@ -8,12 +8,17 @@ class Aluno(models.Model):
         ('F', 'Feminino'),
         ('O', 'Outro'),
     ]
-    
+
+    ATIVO_CHOICES = [
+        (True, 'Sim'),
+        (False, 'Não'),
+    ]
+
     id = models.AutoField(primary_key=True)  # Campo id auto incrementável
     nome = models.CharField(max_length=255)  # Nome do aluno
     ra = models.CharField(max_length=20, unique=True)  # RA do aluno, único
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)  # Sexo do aluno
-    ativo = models.BooleanField(default=True)  # Status do aluno (ativo ou não)
+    ativo = models.BooleanField(default=True, choices= ATIVO_CHOICES)  # Status do aluno (ativo ou não)
     
     def __str__(self):
         return self.nome
@@ -44,11 +49,16 @@ class Livro(models.Model):
         return f'{self.titulo} ({self.autor})'
 
 class Editora(models.Model):
+    ATIVO_CHOICES = [
+        (True, 'Sim'),
+        (False, 'Não'),
+    ]
+
     id = models.AutoField(primary_key=True)  # ID automático
     nome = models.CharField(max_length=255)  # Nome do aluno
     email = models.CharField(max_length=50)
     fone = models.PositiveIntegerField()
-    ativo = models.BooleanField(default=True)  # Status do aluno (ativo ou não)
+    ativo = models.BooleanField(default=True,  choices= ATIVO_CHOICES)  # Status do aluno (ativo ou não)
 
     def __str__(self):
         return self.nome
