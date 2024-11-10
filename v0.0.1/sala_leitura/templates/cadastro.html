@@ -34,32 +34,34 @@
         </select>
     </form>
 
+    <!-- Adicione formulários semelhantes para editoras e categorias -->
+    
     <!-- Formulários de Cadastro -->
-    <div id="form-livros" class="formulario-cadastro" style="display:none;">
-        <form method="post" action="{% url 'cadastrar_livro' %}">
+    <div id="form-livros"  class="formulario-cadastro" style="display:none;">
+        <form method="post" action="?modelo=livros"> {% comment %} action="{% url 'cadastrar_livro' %}" {% endcomment %}
             {% csrf_token %}
-            {{ form_livros.as_p }}  <!-- Exibe o formulário de produto aqui -->
+            {{ form_livros.as_p }}  <!-- Exibe o formulário de livros aqui -->
             <button type="submit">Salvar</button>
         </form>
     </div>
-    <div id="form-alunos" class="formulario-cadastro" style="display:none;">
-        <form method="post" action="{% url 'cadastrar_aluno' %}">
+    <div id="form-alunos"  class="formulario-cadastro" style="display:none;">
+        <form method="post" action="?modelo=alunos"> {% comment %} action="{% url 'cadastrar_aluno' %}" {% endcomment %}
             {% csrf_token %}
-            {{ form_alunos.as_p }}  <!-- Exibe o formulário de cliente aqui -->
+            {{ form_alunos.as_p }}  <!-- Exibe o formulário de alunos aqui -->
             <button type="submit">Salvar</button>
         </form>
     </div>
     <div id="form-editoras" class="formulario-cadastro" style="display:none;">
-        <form method="post" action="{% url 'cadastrar_editora' %}">
+        <form method="post" action="?modelo=editoras"> {% comment %} action="{% url 'cadastrar_editora' %}" {% endcomment %}
             {% csrf_token %}
-            {{ form_editoras.as_p }}  <!-- Exibe o formulário de editora aqui -->
+            {{ form_editoras.as_p }}  <!-- Exibe o formulário de editoras aqui -->
             <button type="submit">Salvar</button>
         </form>
     </div>
     <div id="form-categorias" class="formulario-cadastro" style="display:none;">
-        <form method="post" action="{% url 'cadastrar_categoria' %}">
+        <form method="post" action="?modelo=categorias"> {% comment %} action="{% url 'cadastrar_categoria' %}" {% endcomment %}
             {% csrf_token %}
-            {{ form_categorias.as_p }}  <!-- Exibe o formulário de categoria aqui -->
+            {{ form_categorias.as_p }}  <!-- Exibe o formulário de categorias aqui -->
             <button type="submit">Salvar</button>
         </form>
     </div>

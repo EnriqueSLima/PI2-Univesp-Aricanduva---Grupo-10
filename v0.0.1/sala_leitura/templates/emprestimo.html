@@ -6,10 +6,18 @@
         function mostrarNovoEmprestimo() {
             document.getElementById("novo-emprestimo-form").style.display = "block";
             document.getElementById("emprestimos-ativos").style.display = "none";
+            document.getElementById("emprestimos-hist").style.display = "none";
         }
 
         function mostrarEmprestimosAtivos() {
             document.getElementById("emprestimos-ativos").style.display = "block";
+            document.getElementById("novo-emprestimo-form").style.display = "none";
+            document.getElementById("emprestimos-hist").style.display = "none";
+        }
+
+        function mostrarHistorico() {
+            document.getElementById("emprestimos-hist").style.display = "block";
+            document.getElementById("emprestimos-ativos").style.display = "none";
             document.getElementById("novo-emprestimo-form").style.display = "none";
         }
     </script>
@@ -20,6 +28,8 @@
 
     <button onclick="mostrarNovoEmprestimo()">Novo Empréstimo</button>
     <button onclick="mostrarEmprestimosAtivos()">Empréstimos Ativos</button>
+    <button onclick="mostrarHistorico()">Histórico</button>
+
 
     <div id="novo-emprestimo-form" style="display: none;">
         <h2>Novo Empréstimo</h2>
@@ -36,10 +46,11 @@
             <thead>
                 <tr>
                     <th>Aluno</th>
-                    <th>Título do Livro</th>
-                    <th>Data de Empréstimo</th>
-                    <th>Data de Devolução</th>
-                    <th>Situação</th>
+                    <th>Livro</th>
+                    <th>Data Empréstimo</th>
+                    <th>Data Prevista</th>
+                    <th>Status</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,18 +58,64 @@
                     <tr>
                         <td>{{ emprestimo.aluno.nome }}</td>
                         <td>{{ emprestimo.livro.titulo }}</td>
-                        <td>{{ emprestimo.data_emprestimo|date:"d/m/Y" }}</td>
-                        <td>{{ emprestimo.data_devolucao|date:"d/m/Y" }}</td>
-                        <td><a href="{% url 'alterar_status_ativo' emprestimo.id %}">Devolver</a></td>
+                        <td>{{ emprestimo.data_emprestimo }}</td>
+                        <td>{{ emprestimo.data_prev }}</td>
+                        <td>{% if emprestimo.ativo %}Ativo{% else %}Inativo{% endif %}</td>
+                        <td>
+                            {% if emprestimo.ativo %}
+                                <a href="{% url 'devolver_livro' emprestimo.id %}">Devolver</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+
+    <div id="emprestimos-hist" style="display: none;">
+        <h2>Histórico de Empréstimos</h2>
+
+        <!-- Formulário de Filtro -->
+        <form method="GET" action="{% url 'historico_emprestimos' %}" class="form-inline mb-3">
+            <label for="filtro" class="mr-2">Filtrar por:</label>
+            <select name="filtro" id="filtro" class="form-control mr-2">
+                <option value="">Selecione...</option>
+                <option value="aluno" {% if request.GET.filtro == 'aluno' %}selected{% endif %}>Aluno</option>
+                <option value="titulo" {% if request.GET.filtro == 'titulo' %}selected{% endif %}>Título</option>
+                <option value="data_devolucao" {% if request.GET.filtro == 'data_devolucao' %}selected{% endif %}>Data de Devolução</option>
+            </select>
+
+            <input type="text" name="valor" id="valor" class="form-control mr-2" value="{{ request.GET.valor }}">
+
+            <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Título do Livro</th>
+                    <th>Data de Empréstimo</th>
+                    <th>Data de Prev</th>
+                    <th>Data Devolução</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for historico in historicos %}
+                    <tr>
+                        <td>{{ historico.aluno.nome }}</td>
+                        <td>{{ historico.livro.titulo }}</td>
+                        <td>{{ historico.data_emprestimo|date:"d/m/Y" }}</td>
+                        <td>{{ historico.data_prev|date:"d/m/Y" }}</td>
+                        <td>{{ historico.data_devolucao|date:"d/m/Y" }}</td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="4">Sem empréstimos ativos.</td>
+                        <td colspan="4">Sem empréstimos cadastrados.</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    
-    
 {% endblock content %}
