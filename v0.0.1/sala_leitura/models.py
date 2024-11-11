@@ -31,7 +31,7 @@ class Livro(models.Model):
     ]
     
     id = models.AutoField(primary_key=True)  # ID automático
-    tombo = models.DateField()  # Tombo como data (sem horas e minutos)
+    tombo = models.DateTimeField()  # Tombo como data (sem horas e minutos)
     registro = models.IntegerField(unique=True)  # Registro como número inteiro
     autor = models.CharField(max_length=200)  # Autor do livro
     titulo = models.CharField(max_length=200)  # Título do livro

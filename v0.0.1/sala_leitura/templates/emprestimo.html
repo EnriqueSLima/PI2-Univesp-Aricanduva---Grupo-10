@@ -1,38 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
     <title>Empréstimos</title>
-    <script>
-        function mostrarNovoEmprestimo() {
-            document.getElementById("novo-emprestimo-form").style.display = "block";
-            document.getElementById("emprestimos-ativos").style.display = "none";
-        }
-
-        function mostrarEmprestimosAtivos() {
-            document.getElementById("emprestimos-ativos").style.display = "block";
-            document.getElementById("novo-emprestimo-form").style.display = "none";
-        }
-    </script>
+    <script src="{% static 'sala_leitura/js/emprestimo.js' %}"></script>
 {% endblock head %}
 
 {% block content %}
     <h1>Empréstimos</h1>
-    <div style='display: flex'>
-        <button class='btn' onclick="mostrarNovoEmprestimo()">Novo Empréstimo</button>
-        <button class='btn' onclick="mostrarEmprestimosAtivos()">Empréstimos Ativos</button>
+    <hr>
+    <div class='div_flex'>
+        <button class='btn btn-primary' onclick="mostrarNovoEmprestimo()">Novo Empréstimo</button>
+        <button class='btn btn-primary' onclick="mostrarEmprestimosAtivos()">Empréstimos Ativos</button>
     </div>
-
+    <hr>
     <div id="novo-emprestimo-form" style="display: none;">
         <h2>Novo Empréstimo</h2>
+        <hr>
         <form method="post" action="{% url 'emprestimo' %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class='btn' type="submit">Gerar Empréstimo</button>
+            <button class='btn btn-primary' type="submit">Gerar Empréstimo</button>
         </form>
     </div>
 
     <div id="emprestimos-ativos" style="display: none;">
         <h2>Empréstimos Ativos</h2>
+        <hr>
         <table class="table table-striped">
             <thead>
                 <tr>

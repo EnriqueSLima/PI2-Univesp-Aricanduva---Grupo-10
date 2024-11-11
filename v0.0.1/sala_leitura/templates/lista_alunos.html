@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class='div_filter'>
+    <div class='div_flex'>
         <h2>Lista de Alunos</h2>
         <a href="{% url 'consulta' %}">Voltar</a>
     </div>
-
+    <hr>
     <form method="GET" action="{% url 'lista_alunos' %}" class="form-inline mb-3">
         <div class='div_filter'>
             <input type="hidden" name="modelo" value="alunos">
 
-            <label for="filtro" class="mr-2">Filtrar por:</label>
+            <label for="filtro" class="mr-2">Filtros:</label>
             <select name="filtro" id="filtro" class="form-control mr-2" onchange="this.form.submit()">
                 <option value="">Selecione...</option>
                 <option value="nome" {% if request.GET.filtro == 'nome' %}selected{% endif %}>Nome</option>
@@ -32,7 +32,7 @@
             <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
         </div>
     </form>
-
+    <hr>
     <!-- Tabela de Alunos -->
     <table class="table table-striped">
         <thead>

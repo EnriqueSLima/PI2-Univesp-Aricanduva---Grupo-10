@@ -8,8 +8,8 @@ class AlunoForm(forms.ModelForm):
         widgets = {
             'nome': forms.TextInput(attrs={'placeholder': 'Digite o nome'}),
             'ra': forms.TextInput(attrs={'placeholder': 'Digite o RA'}),
-            'sexo': forms.Select(choices=Aluno.SEXO_CHOICES, attrs={'class': 'form-control mr-2'}),  # Para garantir que o campo 'sexo' seja exibido como um select
-            'ativo': forms.Select(choices=Editora.ATIVO_CHOICES, attrs={'class': 'form-control mr-2'}),
+            'sexo': forms.Select(choices=Aluno.SEXO_CHOICES),  # Para garantir que o campo 'sexo' seja exibido como um select
+            'ativo': forms.Select(choices=Editora.ATIVO_CHOICES),
         }
 
 class LivroForm(forms.ModelForm):
@@ -18,7 +18,7 @@ class LivroForm(forms.ModelForm):
         fields = ['tombo', 'registro', 'autor', 'titulo', 'procedencia', 'exemplar', 
                   'colecao', 'edicao', 'ano', 'vol', 'editora', 'observacao', 'aquisicao']
         widgets = {
-            'tombo': forms.TextInput(attrs={'placeholder': 'XX/XX/XX'}),
+            'tombo': forms.DateInput(format='%d/%m/%Y'),
             'registro': forms.TextInput(attrs={'placeholder': 'Digite o registro'}),            
             'autor': forms.TextInput(attrs={'placeholder': 'Digite o(a) autor(a)'}),
             'titulo': forms.TextInput(attrs={'placeholder': 'Digite o titulo'}),
@@ -29,7 +29,7 @@ class LivroForm(forms.ModelForm):
             'ano': forms.TextInput(attrs={'placeholder': 'Digite o ano'}),
             'vol': forms.TextInput(attrs={'placeholder': 'Digite o volume'}),
             'editora': forms.TextInput(attrs={'placeholder': 'Digite a editora'}),
-            'aquisicao': forms.Select(choices=Livro.AQUISICAO_CHOICES, attrs={'class': 'form-control mr-2'}),
+            'aquisicao': forms.Select(choices=Livro.AQUISICAO_CHOICES),
         }
 
 class EditoraForm(forms.ModelForm):
@@ -40,7 +40,7 @@ class EditoraForm(forms.ModelForm):
             'nome': forms.TextInput(attrs={'placeholder': 'Digite o nome'}),
             'email': forms.TextInput(attrs={'placeholder': 'Digite o email'}),
             'fone': forms.TextInput(attrs={'placeholder': 'XXXXX-XXXX'}),
-            'ativo': forms.Select(choices=Editora.ATIVO_CHOICES, attrs={'class': 'form-control mr-2'}),
+            'ativo': forms.Select(choices=Editora.ATIVO_CHOICES),
         }
 
 class CategoriaForm(forms.ModelForm):
@@ -58,6 +58,6 @@ class EmprestimoForm(forms.ModelForm):
         widgets = {
             'aluno': forms.Select(attrs={'class': 'form-control mr-2'}),  # Campo para selecionar o aluno
             'livro': forms.Select(attrs={'class': 'form-control mr-2'}),  # Campo para selecionar o livro
-            'ativo': forms.Select(choices=Editora.ATIVO_CHOICES, attrs={'class': 'form-control mr-2'}),
+            'ativo': forms.Select(choices=Editora.ATIVO_CHOICES),
 
         }

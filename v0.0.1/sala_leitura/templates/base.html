@@ -7,13 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'sala_leitura/css/base.css' %}">
+    {% comment %} 
+         <script src="{% static 'sala_leitura/js/cadastro.js' %}"></script>
+    {% endcomment %}        
     {% block title %}{% endblock %}
     {% block head %}{% endblock %}
 </head>
 <body>
     {% block header %}
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id='navbar'>
-                <a class="navbar-brand"  href="{% url 'home_page' %}">Sala de Leitura</a>
+            <img src="{% static 'sala_leitura/img/logo_sala_leitura.jpeg' %}" width="70" height="70" alt="Logotipo EMEF Aquiles Ribeiro">
+            <a class="navbar-brand"  href="{% url 'home_page' %}">Sala de Leitura</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
@@ -66,91 +72,6 @@
             </div>
     {% endblock %}
     <main>
-        <style>
-            html, body {
-                height: 100%;  /* Garantir que o corpo da página ocupe toda a altura */
-                margin: 0;     /* Remover margens padrão */
-                display: flex;
-                flex-direction: column;  /* Organizar o conteúdo em coluna */
-                font-family: Arial, sans-serif;
-            }
-   
-            main {
-                max-width: 1200px; /* Largura máxima para o conteúdo */
-                margin: 0 auto; /* Centraliza horizontalmente */
-                padding: 20px; /* Espaçamento interno */
-                flex: 1;  /* Faz o conteúdo principal ocupar o espaço disponível */
-                width: 100%;  /* Garante que o conteúdo ocupe toda a largura da tela */
-                box-sizing: border-box;  /* Garantir que o padding não afete a largura */
-                padding: 20px;  /* Padding para o conteúdo principal */
-            }
-    
-            nav {
-                background-color: #f8f9fa; /* Cor de fundo leve para a navbar */
-            }
-            
-            #navbar {
-                padding: 20px;
-            }
-
-            .div_filter {
-                display: flex;
-                justify-content: space-between; /* Espaço entre os elementos */
-                width: 100%; /* Ocupa toda a largura disponível */
-            }
-            
-            .div_filter select, .div_filter input, .div_filter button {
-                margin: 5px 10px 5px 0; /* Ajuste do espaçamento entre os elementos */
-            }
-            
-            a {
-                text-decoration: none;  /* Remove o sublinhado */
-                color: inherit;         /* Faz o texto ter a cor do elemento pai */
-            }
-            a:focus, a:hover {
-                outline: none;  /* Remove o contorno ao focar no link */
-                text-decoration: none;  /* Garante que o sublinhado não apareça ao passar o mouse ou focar */
-            }
-                        
-            .btn {
-                display: block;
-                width: 100%;
-                padding: 0.5rem 1rem;
-                font-size: 1rem;
-                border: 1px solid #ced4da;
-                border-radius: 0.375rem;
-                background-color: #f8f9fa;
-            }
-
-            input, select, textarea {
-                display: block;
-                width: 100%;
-                padding: 0.5rem 1rem;
-                font-size: 1rem;
-                border: 1px solid #ced4da;
-                border-radius: 0.375rem;
-                background-color: #f8f9fa;
-                transition: border-color 0.3s ease;
-            }
-
-            input:focus, select:focus, textarea:focus {
-                border-color: #007bff;
-                outline: none;
-            }
-
-            footer {
-                text-align: center;
-                padding: 20px;
-                background-color: #f8f9fa;
-                margin-top: 40px;
-            }
-            /* Responsividade */
-            @media (max-width: 768px) {
-                main {
-                    padding: 10px;
-                }
-            }
-        </style>
         {% block content %}
         {% endblock %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
