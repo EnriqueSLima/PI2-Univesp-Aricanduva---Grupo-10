@@ -31,17 +31,18 @@ class Livro(models.Model):
     ]
     
     id = models.AutoField(primary_key=True)  # ID automático
-    tombo = models.DateTimeField()  # Tombo como data (sem horas e minutos)
+    tombo = models.DateTimeField(null=True, blank=True)  # Tombo como data (sem horas e minutos)
     registro = models.IntegerField(unique=True)  # Registro como número inteiro
-    autor = models.CharField(max_length=200)  # Autor do livro
-    titulo = models.CharField(max_length=200)  # Título do livro
-    procedencia = models.CharField(max_length=200)  # Procedência do livro
+    autor = models.CharField(max_length=500)  # Autor do livro
+    titulo = models.CharField(max_length=500)  # Título do livro
+    procedencia = models.CharField(max_length=500)  # Procedência do livro
     exemplar = models.PositiveIntegerField()  # Número do exemplar
-    colecao = models.CharField(max_length=200)  # Coleção do livro
+    colecao = models.CharField(max_length=500)  # Coleção do livro
     edicao = models.CharField(max_length=50)  # Edição do livro
-    ano = models.PositiveIntegerField()  # Ano de publicação
-    vol = models.PositiveIntegerField()  # Volume
-    editora = models.CharField(max_length=200)  # Editora do livro
+    ano = models.PositiveIntegerField(null=True, blank=True)  # Ano de publicação
+    vol = models.PositiveIntegerField(null=True, blank=True)  # Volume
+    editora = models.CharField(max_length=500)  # Editora do livro
+    categoria = models.CharField(max_length=500, null=True, blank=True)  # Editora do livro
     observacao = models.TextField(null=True, blank=True)  # Observações
     aquisicao = models.CharField(max_length=1, choices=AQUISICAO_CHOICES)  # Tipo de aquisição
     
@@ -55,7 +56,7 @@ class Editora(models.Model):
     ]
 
     id = models.AutoField(primary_key=True)  # ID automático
-    nome = models.CharField(max_length=255)  # Nome do aluno
+    nome = models.CharField(max_length=500)  # Nome do aluno
     email = models.CharField(max_length=50)
     fone = models.CharField(max_length=11)
     ativo = models.BooleanField(default=True,  choices= ATIVO_CHOICES)  # Status do aluno (ativo ou não)
