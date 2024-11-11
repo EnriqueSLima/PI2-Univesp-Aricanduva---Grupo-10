@@ -14,6 +14,7 @@ from .views import (
     lista_categorias,
     lista_emprestimos,
     devolver_livro,
+    detalhes_livro,
 )
 
 urlpatterns = [
@@ -23,6 +24,7 @@ urlpatterns = [
     path('home/', home_page, name='home_page'),
     path('consulta/', consulta, name='consulta'),
     path('lista_livros/', lista_livros, name='lista_livros'),
+    path('detalhes_livro/<int:id>/', detalhes_livro, name='detalhes_livro'),
     path('lista_alunos/', lista_alunos, name='lista_alunos'),
     path('lista_editoras/', lista_editoras, name='lista_editoras'),
     path('lista_categorias/', lista_categorias, name='lista_categorias'),

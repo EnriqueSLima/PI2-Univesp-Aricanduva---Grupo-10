@@ -29,33 +29,29 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Tombo</th>
                 <th>Registro</th>
                 <th>Autor</th>
                 <th>Título</th>
-                <th>Procedência</th>
                 <th>Exemplar</th>
-                <th>Coleção</th>
                 <th>Edição</th>
                 <th>Ano</th>
                 <th>Vol</th>
                 <th>Editora</th>
+                <th>Detalhe</th>
             </tr>
         </thead>
         <tbody>
             {% for livro in livros %}
                 <tr>
-                    <td>{{ livro.tombo }}</td>
                     <td>{{ livro.registro }}</td>
                     <td>{{ livro.autor }}</td>
                     <td>{{ livro.titulo }}</td>
-                    <td>{{ livro.procedencia }}</td>
                     <td>{{ livro.exemplar }}</td>
-                    <td>{{ livro.colecao }}</td>
                     <td>{{ livro.edicao }}</td>
                     <td>{{ livro.ano }}</td>
                     <td>{{ livro.vol }}</td>
                     <td>{{ livro.editora }}</td>
+                    <td><a href="{% url 'detalhes_livro' livro.id %}">Detalhes</a></td>
                 </tr>
             {% empty %}
                 <tr>

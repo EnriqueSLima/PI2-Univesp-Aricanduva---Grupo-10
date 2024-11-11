@@ -40,6 +40,12 @@ def lista_livros(request):
     
     return render(request, 'lista_livros.html', {'livros': livros})
 
+# View para os detalhes do livro
+def detalhes_livro(request, id):
+    livro = get_object_or_404(Livro, id=id)
+    return render(request, 'detalhes_livro.html', {'livro': livro})
+
+
 # View para a listar alunos
 @login_required
 def lista_alunos(request):
