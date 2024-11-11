@@ -170,6 +170,7 @@ def emprestimo(request):
         form = EmprestimoForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Empréstimo realizado com sucesso!')
             return redirect('emprestimo') 
     else:
         form = EmprestimoForm()
@@ -194,6 +195,7 @@ def devolver_livro(request, emprestimo_id):
     emprestimo.data_devolucao = timezone.now().date()
     emprestimo.ativo = False
     emprestimo.save()
+    messages.success(request, 'Devolução realizada com sucesso!')
 
     return redirect('emprestimo')
 
