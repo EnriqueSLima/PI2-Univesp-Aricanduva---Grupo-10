@@ -1,0 +1,14 @@
+/* Estilos para aumentar/diminuir a fonte */
+.fonte-maior {
+    font-size: 1.2em; /* Exemplo para aumentar o tamanho da fonte */
+}
+
+.fonte-menor {
+    font-size: 0.8em; /* Exemplo para diminuir o tamanho da fonte */
+}
+
+/* Estilos para o modo de alto contraste */
+.alto-contraste {
+    background-color: black;
+    color: white;
+}

@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Home Page</h1>
+    <div class='div_flex'>
+        <h1>Olá, {{user.username}}.</h1>
+        <p></p>
+        <a href="{% url 'admin:index' %}">Gerenciamento</a>
+    </div>
+    <hr>
+
 {% endblock %}
