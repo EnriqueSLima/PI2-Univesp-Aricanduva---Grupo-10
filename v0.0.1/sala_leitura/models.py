@@ -57,7 +57,7 @@ class Editora(models.Model):
     id = models.AutoField(primary_key=True)  # ID automático
     nome = models.CharField(max_length=255)  # Nome do aluno
     email = models.CharField(max_length=50)
-    fone = models.PositiveIntegerField()
+    fone = models.CharField(max_length=11)
     ativo = models.BooleanField(default=True,  choices= ATIVO_CHOICES)  # Status do aluno (ativo ou não)
 
     def __str__(self):
