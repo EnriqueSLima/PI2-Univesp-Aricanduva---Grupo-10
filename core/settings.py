@@ -130,9 +130,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+
+MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicione isso
+    # outros middlewares...
+]
+
+# Outras configurações para arquivos estáticos
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Configuração para coletar arquivos estáticos
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Adicione o diretório onde você tem os arquivos estáticos
+]
+
+# Diretório onde os arquivos estáticos serão armazenados depois do collectstatic
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
+# Configurações de arquivos de mídia (caso esteja usando uploads de arquivos)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
