@@ -1,3 +1,4 @@
+# Imports necessários
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import AlunoForm, LivroForm, EditoraForm, CategoriaForm, EmprestimoForm
 from .models import Aluno, Livro, Editora, Categoria, Emprestimo
@@ -6,7 +7,6 @@ from django.utils import timezone
 from django.http import HttpResponse, HttpRequest
 from django.contrib import messages
 
-
 # View para a landing page
 def landing_page(request):
     return render(request, 'landing_page.html')
@@ -14,7 +14,26 @@ def landing_page(request):
 # View para a home_page
 @login_required(login_url='landing_page')
 def home_page(request):
-    return render(request, 'home_page.html')
+    # Contagem de livros, alunos, categorias e editoras
+    livros_count = Livro.objects.count()
+    alunos_count = Aluno.objects.count()
+    categorias_count = Categoria.objects.count()
+    editoras_count = Editora.objects.count()
+    
+    # Contagem de empréstimos
+    emprestimos_count = Emprestimo.objects.count()  # Total de empréstimos realizados
+    emprestimos_ativos_count = Emprestimo.objects.filter(ativo=True).count()  # Empréstimos ativos
+
+    # Passando as variáveis para o template
+    return render(request, 'home_page.html', {
+        'livros_count': livros_count,
+        'alunos_count': alunos_count,
+        'categorias_count': categorias_count,
+        'editoras_count': editoras_count,
+        'emprestimos_count': emprestimos_count,
+        'emprestimos_ativos_count': emprestimos_ativos_count
+    })
+
 
 # View para a consultas
 @login_required
@@ -44,7 +63,6 @@ def lista_livros(request):
 def detalhes_livro(request, id):
     livro = get_object_or_404(Livro, id=id)
     return render(request, 'detalhes_livro.html', {'livro': livro})
-
 
 # View para a listar alunos
 @login_required
