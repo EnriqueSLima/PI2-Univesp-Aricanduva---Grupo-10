@@ -16,6 +16,8 @@ main {
     padding: 0 16px;  /* Padding para o conteúdo principal */
     border-right:1px solid lightgray;
     border-left:1px solid lightgray;
+    background-color: whitesmoke;
+    margin-top: 0;
 }
 
 #navbar {
