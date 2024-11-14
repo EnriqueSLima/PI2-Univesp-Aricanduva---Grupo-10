@@ -41,31 +41,32 @@ INSTALLED_APPS = [
     'sala_leitura'
 ]
 
-#MIDDLEWARE = [
-#    'django.middleware.security.SecurityMiddleware',
-#    'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicione logo após o SecurityMiddleware
-#    'django.contrib.sessions.middleware.SessionMiddleware',
-#    'django.middleware.common.CommonMiddleware',
-#    'django.middleware.csrf.CsrfViewMiddleware',
-#    'django.contrib.auth.middleware.AuthenticationMiddleware',
-#    'django.contrib.messages.middleware.MessageMiddleware',
-#    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-#]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicione logo após o SecurityMiddleware
-    'django.contrib.sessions.middleware.SessionMiddleware',  # Necessário para sessões
-    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Necessário para autenticação
-    'django.contrib.messages.middleware.MessageMiddleware',  # Necessário para mensagens
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.staticfiles.middleware.StaticFilesMiddleware',  # Necessário para arquivos estáticos
-    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.contenttypes.middleware.ContentTypeMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+#MIDDLEWARE = [
+#    'django.middleware.security.SecurityMiddleware',
+#    'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicione logo após o SecurityMiddleware
+#    'django.contrib.sessions.middleware.SessionMiddleware',  # Necessário para sessões
+#    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Necessário para autenticação
+#    'django.contrib.messages.middleware.MessageMiddleware',  # Necessário para mensagens
+#    'django.middleware.common.CommonMiddleware',
+#    'django.middleware.csrf.CsrfViewMiddleware',
+#    'django.contrib.staticfiles.middleware.StaticFilesMiddleware',  # Necessário para arquivos estáticos
+#    'django.contrib.sites.middleware.CurrentSiteMiddleware',
+#    'django.contrib.auth.middleware.AuthenticationMiddleware',
+#    'django.contrib.contenttypes.middleware.ContentTypeMiddleware',
+#    'django.contrib.sessions.middleware.SessionMiddleware',
+#]
 
 
 ROOT_URLCONF = 'core.urls'
