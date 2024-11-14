@@ -1,7 +1,7 @@
 let fonteTamanho = 1; // Tamanho da fonte inicial (1 = normal)
 let modoContrasteAtivo = false;
 
-function ajustarFonte(acao) {
+/* function ajustarFonte(acao) {
     // Seleciona os elementos que terão o tamanho da fonte alterado
     const elementos = [
         document.body,
@@ -22,7 +22,34 @@ function ajustarFonte(acao) {
     elementos.forEach(elemento => {
         elemento.style.fontSize = fonteTamanho + 'em';
     });
+} */
+
+function ajustarFonte(acao) {
+    // Seleciona os elementos que terão o tamanho da fonte alterado
+    const elementos = [
+        document.body,
+        document.getElementById('page-head'),
+        document.getElementById('page-footer'),
+        document.getElementById('navbar'),
+        ...document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, a, div')
+    ];
+
+    // Calcula o tamanho atual da fonte em 'em' (unidade relativa)
+    const tamanhoAtual = parseFloat(window.getComputedStyle(document.body).fontSize) / 16; // Convertendo para 'em'
+
+    // Aumenta ou diminui o tamanho da fonte com base na ação
+    if (acao === 'aumentar') {
+        fonteTamanho = tamanhoAtual + 0.1;
+    } else if (acao === 'diminuir') {
+        fonteTamanho = tamanhoAtual - 0.1;
+    }
+
+    // Aplica o novo tamanho de fonte nos elementos selecionados
+    elementos.forEach(elemento => {
+        elemento.style.fontSize = fonteTamanho + 'em';
+    });
 }
+
 
 function mudarContraste() {
     // Seleciona os elementos que terão o contraste alterado
