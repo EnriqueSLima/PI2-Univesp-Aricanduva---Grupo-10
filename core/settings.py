@@ -41,15 +41,32 @@ INSTALLED_APPS = [
     'sala_leitura'
 ]
 
+#MIDDLEWARE = [
+#    'django.middleware.security.SecurityMiddleware',
+#    'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicione logo após o SecurityMiddleware
+#    'django.contrib.sessions.middleware.SessionMiddleware',
+#    'django.middleware.common.CommonMiddleware',
+#    'django.middleware.csrf.CsrfViewMiddleware',
+#    'django.contrib.auth.middleware.AuthenticationMiddleware',
+#    'django.contrib.messages.middleware.MessageMiddleware',
+#    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicione logo após o SecurityMiddleware
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Necessário para sessões
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Necessário para autenticação
+    'django.contrib.messages.middleware.MessageMiddleware',  # Necessário para mensagens
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.staticfiles.middleware.StaticFilesMiddleware',  # Necessário para arquivos estáticos
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.contenttypes.middleware.ContentTypeMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
+
 
 ROOT_URLCONF = 'core.urls'
 
@@ -75,23 +92,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'psql_sala_leitura',
-#        'USER': 'postgres',
-#        'PASSWORD': 'salaleiturapostgres',
-#        'HOST': 'localhost',
-#        'PORT': '5432',
-#    }
-#}
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
@@ -131,22 +132,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 
-MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicione isso
-    # outros middlewares...
-]
-
-# Outras configurações para arquivos estáticos
+# Diretório onde os arquivos estáticos serão armazenados depois do collectstatic
 STATIC_URL = '/static/'
+
+# Usando whitenoise para servir arquivos estáticos de forma eficiente
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Configuração para coletar arquivos estáticos
+# Diretório onde os arquivos estáticos adicionais são armazenados (opcional, se você tiver arquivos estáticos customizados)
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Adicione o diretório onde você tem os arquivos estáticos
+    os.path.join(BASE_DIR, 'static'),  # Certifique-se de que esse diretório existe
 ]
 
-# Diretório onde os arquivos estáticos serão armazenados depois do collectstatic
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Diretório onde o Heroku irá armazenar os arquivos estáticos coletados
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Heroku usa este diretório para armazenar os arquivos estáticos coletados
+
 
 
 # Configurações de arquivos de mídia (caso esteja usando uploads de arquivos)
