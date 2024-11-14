@@ -20,8 +20,7 @@ from .views import (
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'), # Funcionalidade nativa Django
     path('logout/', auth_views.LogoutView.as_view(), name='logout'), # Funcionalidade nativa Django
-    path('', lambda request: redirect('sala_leitura/')),  # Redireciona para /sala_leitura/
-    path('sala_leitura/', landing_page, name='landing_page'),   
+    path('', landing_page, name='landing_page'),    
     path('home/', home_page, name='home_page'),
     path('consulta/', consulta, name='consulta'),
     path('lista_livros/', lista_livros, name='lista_livros'),
