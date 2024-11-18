@@ -130,8 +130,6 @@ STATICFILES_DIRS = [
 # Diretório onde o Heroku irá armazenar os arquivos estáticos coletados
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Heroku usa este diretório para armazenar os arquivos estáticos coletados
 
-
-
 # Configurações de arquivos de mídia (caso esteja usando uploads de arquivos)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -140,8 +138,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# settings.py
 
 LOGIN_REDIRECT_URL = 'home_page'  # Redireciona para a landing page após o login
 LOGOUT_REDIRECT_URL = 'landing_page'  # Redireciona para a landing page após o logout
